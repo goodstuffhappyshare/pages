@@ -52,7 +52,7 @@ div{
 /***** Control Area *****/
 
 #ctrl_instr{
-	
+	text-align: center;
 }
 
 #f_box{
@@ -61,8 +61,8 @@ div{
 }
 
 #f_btn{
-	width: 40px;
-	height: 40px;
+	width: 80px;
+	height: 80px;
 	border: 1px #000000 solid;
 	background-color: #CCCCCC;
 }
