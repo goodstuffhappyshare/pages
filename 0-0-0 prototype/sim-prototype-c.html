@@ -4,16 +4,15 @@
 |                  DEMONSTRATION OF NEWTON'S 1ST AND 2ND LAWS                  |
 |                                                                              |
 |                             Author: Jonathan Mok                             |
-|                          Last modified: 28 Aug 2020                          |
+|                          Last modified: 01 Sep 2020                          |
 |                                                                              |
-|          This web app is a supplementary material to a video lecture         |
+|         This web app is a supplementary material to a video lecture          |
 |                    "2-3 Newton’s Laws of Motion (Part 1)"                    |
-|                             which can be found in                            |
+|                            which can be found in                             |
 |            https://goodstuffhappyshare.wordpress.com/physics_eng/            |
 |                                                                              |
-|                          This work is licensed under                         |
-|     a Creative Commons Attribution-ShareAlike 4.0 International License.     |
-|                http://creativecommons.org/licenses/by-sa/4.0/                |
+|                       Available under the MIT license:                       |
+|           https://goodstuffhappyshare.github.io/pages/license.txt            |
 |                                                                              |
 ------------------------------------------------------------------------------->
 <html>
@@ -28,6 +27,9 @@
 		<!-- jQuery UI Touch Punch -->
 		<script src="library/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 		
+		<!-- jQuery Fullscreen --->
+		<script src="library/jquery.fullscreen/jquery.fullscreen.min.js"></script>
+		
 		<!-- jQuery SVG -->
 		<link rel="stylesheet" type="text/css" href="library/jquery.svg.package-1.5.0/jquery.svg.css" />
 		<script src="library/jquery.svg.package-1.5.0/jquery.svg.min.js"></script>
@@ -38,28 +40,49 @@
 		
 		<!-- my scripts -->
 		<script src="0.my-library.js"></script>
-		<script src="1.menu.js"></script>
-		<script src="2.layout.js"></script>
+		<script src="1.layout.js"></script>
+		<script src="2.menu.js"></script>
 		<script src="3.0.main-variables.js"></script>
 		<script src="3.1.input-ui.js"></script>
 		<script src="3.2.main-algorithm.js"></script>
 		<script src="3.3.output-display.js"></script>
 		<script src="4.main-config.js"></script>
-		
 	</head>
 	<body>
-		<div id="main_frame">
-			<div id="ctrl_area">
-				<div id="ctrl_instr">拖曳以下按鈕，向物體施力：</div>
-				<div id="f_box">
-					<div id="f_btn"></div>
+		<div id="doc">
+			<div id="main_frame">
+				<div id="ctrl_area">
+					<div id="ctrl_instr">拖曳以下按鈕，向物體施力：</div>
+					<div id="f_box">
+						<div id="f_btn"></div>
+					</div>
+				</div>
+				<div id="disp_area">
+					<div id="p_box"></div>
+					<!-- Log (for debug use) ->
+						<div id="log"></div>
+					<!-- End log -->
+				</div>
+				<div id="split_bar" class="ui-widget-content">
+					<div id="split_bar_decor"></div>
 				</div>
 			</div>
-			<div id="disp_area">
-				<div id="p_box"></div>
-			</div>
-			<div id="split_bar" class="ui-widget-content">
-				<div id="split_bar_decor"></div>
+			<div id="menu">
+				<div id="menu_icon">
+					<img src="menu_icon.png" style="width:100%; height:100%">
+				</div>
+				<div class="menu_item" id="menu_switch_language">
+					<a href="sim-prototype-e.html">English</a>
+				</div>
+				<div class="menu_item" id="menu_enter_fullscreen">
+					<a onclick="enter_fullscreen_on_click()">開啟全螢幕</a>
+				</div>
+				<div class="menu_item" id="menu_exit_fullscreen">
+					<a onclick="exit_fullscreen_on_click()">關閉全螢幕</a>
+				</div>
+				<div class="menu_item" id="menu_go_to_list">
+					<a href="https://goodstuffhappyshare.wordpress.com/physics/">《物理觀念》資源列表</a>
+				</div>
 			</div>
 		</div>
 	</body>

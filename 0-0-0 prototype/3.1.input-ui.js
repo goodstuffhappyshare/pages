@@ -16,14 +16,21 @@ var f_box_size_min = 150;
 
 // Methods
 
+function pretreat_ctrl_area_text(){
+	/* put textboxs at positions where they are allowed to freely expand
+	   (or shrink) to a size suitable for display, then this size will be
+	   read by calc_ctrl_area_sizes().                                        */
+	$("#ctrl_instr").left(ctrl_area_pad*2);
+}
+
 function calc_ctrl_area_sizes(){
 	ctrl_instr_W = $("#ctrl_instr").width();
 	ctrl_instr_H = $("#ctrl_instr").height();
 	
 	avail_width = ctrl_area_W - ctrl_area_pad * 2;
 	avail_height = ctrl_area_H - ctrl_area_pad * 3 - ctrl_instr_H;
-	f_box_size = Math.max(avail_height, f_box_size_min);
-	f_box_size = Math.min(f_box_size, avail_width);
+	f_box_size = Math.min(avail_height, avail_width);
+	f_box_size = Math.max(f_box_size, f_box_size_min);
 }
 
 function resize_ctrl_area_components(){
@@ -39,11 +46,13 @@ function resize_ctrl_area_components(){
 // Events
 
 function ctrl_area_init(){
+	pretreat_ctrl_area_text();
 	calc_ctrl_area_sizes();
 	resize_ctrl_area_components();
 }
 
 function ctrl_area_on_layout_change(){
+	pretreat_ctrl_area_text();
 	calc_ctrl_area_sizes();
 	resize_ctrl_area_components();
 }

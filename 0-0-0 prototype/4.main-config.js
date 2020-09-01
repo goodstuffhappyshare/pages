@@ -14,6 +14,7 @@
 function main_on_load(){
 	// call these functions when document is loaded
 	layout_init();
+	menu_init();
 	input_UI_init();
 	output_display_init();
 }
@@ -28,6 +29,7 @@ function main_on_enter_frame(dt){
 
 function main_on_layout_change(){
 	// call these functions when the layout is changed
+	menu_on_layout_change();
 	input_UI_on_layout_change();
 	output_display_on_layout_change();
 }

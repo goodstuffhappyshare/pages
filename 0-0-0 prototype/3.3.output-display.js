@@ -19,8 +19,8 @@ var p_box_size_min = 300;
 function calc_disp_area_sizes(){
 	avail_width = disp_area_W - disp_area_pad * 2;
 	avail_height = disp_area_H - disp_area_pad * 2;
-	p_box_size = Math.max(avail_height, p_box_size_min);
-	p_box_size = Math.min(p_box_size, avail_width);
+	p_box_size = Math.min(avail_height, avail_width);
+	p_box_size = Math.max(p_box_size, p_box_size_min);
 }
 
 function resize_disp_area_components(){
