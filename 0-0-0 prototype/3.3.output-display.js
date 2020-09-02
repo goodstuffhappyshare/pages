@@ -203,7 +203,6 @@ function redraw_particles(){
 function resize_p_box_svg(){
 	svg = $("#p_box").svg("get");
 	svg.configure({"width": p_box_size * doc_scale, "height": p_box_size * doc_scale});
-	$("#log").append(p_box_size + " / " + p_box_size * doc_scale + "<br/>");
 }
 
 // Events

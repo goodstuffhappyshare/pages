@@ -27,8 +27,8 @@ function main_on_enter_frame(dt){
 	output_display_on_enter_frame(dt);
 	
 	// for debug use
-	$("#log").scrollTop($("#log")[0].scrollHeight);
-	$("#log").css("font-size", font_size*doc_scale/2.0 + "px");
+	// $("#log").scrollTop($("#log")[0].scrollHeight);
+	// $("#log").css("font-size", font_size*doc_scale/2.0 + "px");
 }
 
 function main_on_layout_change(){
