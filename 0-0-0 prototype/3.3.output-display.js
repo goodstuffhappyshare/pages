@@ -24,10 +24,10 @@ function calc_disp_area_sizes(){
 }
 
 function resize_disp_area_components(){
-	$("#p_box").left((disp_area_W - p_box_size) / 2.0);
-	$("#p_box").top(disp_area_pad);
-	$("#p_box").width(p_box_size);
-	$("#p_box").height(p_box_size);
+	$("#p_box").L((disp_area_W - p_box_size) / 2.0);
+	$("#p_box").T(disp_area_pad);
+	$("#p_box").W(p_box_size);
+	$("#p_box").H(p_box_size);
 }
 
 // Events
@@ -123,12 +123,12 @@ function redraw_particle(id, offset_X, offset_Y){
 	X = x_to_p_box(p_sx) + offset_X;
 	Y = y_to_p_box(p_sy) + offset_Y;
 	$("#p_container_" + id).attr(
-		"transform", "translate(" + X + " " + Y + ")");
+		"transform", "translate(" + X * doc_scale + " " + Y * doc_scale + ")");
 	
 	// Size of particle
 	
 	radius = length_to_p_box(p_size);
-	$("#particle_" + id).attr("r", radius);
+	$("#particle_" + id).attr("r", radius * doc_scale);
 	
 	// Velocity arrow
 	
@@ -136,16 +136,16 @@ function redraw_particle(id, offset_X, offset_Y){
 	v_len = length_to_p_box(v) * v_scale;
 	v_angle = Math.atan2(p_vy, p_vx) * 180 / Math.PI;
 	$("#v_arrow_body_" + id).attr({
-		x1: 0,     y1: 0,
-		x2: v_len, y2: 0
+		x1: 0,                 y1: 0,
+		x2: v_len * doc_scale, y2: 0
 	});
 	$("#v_arrow_head1_" + id).attr({
-		x1: v_len,      y1: 0,
-		x2: v_len - 10, y2: -10
+		x1: (v_len     ) * doc_scale, y1: ( 0 ) * doc_scale,
+		x2: (v_len - 10) * doc_scale, y2: (-10) * doc_scale
 	});
 	$("#v_arrow_head2_" + id).attr({
-		x1: v_len,      y1: 0,
-		x2: v_len - 10, y2: 10
+		x1: (v_len     ) * doc_scale, y1: ( 0) * doc_scale,
+		x2: (v_len - 10) * doc_scale, y2: (10) * doc_scale
 	});
 	$("#v_arrow_" + id).attr({
 		transform: "rotate(" + v_angle + ")"
@@ -157,16 +157,16 @@ function redraw_particle(id, offset_X, offset_Y){
 	f_len = length_to_p_box(f) * f_scale;
 	f_angle = Math.atan2(f_y, f_x) * 180 / Math.PI;
 	$("#f_arrow_body_" + id).attr({
-		x1: 0,     y1: 0,
-		x2: f_len, y2: 0
+		x1: 0,                 y1: 0,
+		x2: f_len * doc_scale, y2: 0
 	});
 	$("#f_arrow_head1_" + id).attr({
-		x1: f_len,      y1: 0,
-		x2: f_len - 10, y2: -10
+		x1: (f_len     ) * doc_scale, y1: ( 0 ) * doc_scale,
+		x2: (f_len - 10) * doc_scale, y2: (-10) * doc_scale
 	});
 	$("#f_arrow_head2_" + id).attr({
-		x1: f_len,      y1: 0,
-		x2: f_len - 10, y2: 10
+		x1: (f_len     ) * doc_scale, y1: (0 ) * doc_scale,
+		x2: (f_len - 10) * doc_scale, y2: (10) * doc_scale
 	});
 	$("#f_arrow_" + id).attr({
 		transform: "rotate(" + f_angle + ")"

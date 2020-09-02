@@ -9,19 +9,24 @@
 
 // Fixed values
 
+var doc_side_length = 720;
+
 var menu_icon_size = 80;
 
 var split_bar_thick = 20;
 var split_bar_decor_length = 80;
 var split_bar_decor_thick = 8;
 
+var font_size = 40;
+
 // Values to be read from screen
 
-var doc_W, doc_H;
+var doc_width, doc_height;
 var split_bar_L, split_bar_T;
 
 // Values to be calculated
 
+var doc_W, doc_H;
 var doc_is_landscape;
 var main_frame_L, main_frame_T, main_frame_W, main_frame_H;
 
@@ -34,13 +39,18 @@ var split_bar_decor_L, split_bar_decor_T, split_bar_decor_W, split_bar_decor_H;
 // Methods
 
 function read_doc_size(){
-	doc_W = $("#doc").width();
-	doc_H = $("#doc").height();
-	if(doc_W >= doc_H){
+	doc_width = $("#doc").width();
+	doc_height = $("#doc").height();
+	if(doc_width >= doc_height){
 		doc_is_landscape = true;
+		doc_scale = 1.0 * doc_height / doc_side_length;
 	}else{
 		doc_is_landscape = false;
+		doc_scale = 1.0 * doc_width / doc_side_length;
 	}
+	doc_W = doc_width / doc_scale;
+	doc_H = doc_height / doc_scale;
+	$("*").css("font-size", font_size*doc_scale + "px");
 }
 
 function calc_main_frame_size(){
@@ -68,8 +78,8 @@ function set_split_bar_default_position(){
 }
 
 function read_split_bar_position(){
-	split_bar_L = $("#split_bar").left();
-	split_bar_T = $("#split_bar").top();
+	split_bar_L = $("#split_bar").L();
+	split_bar_T = $("#split_bar").T();
 }
 
 function calc_main_frame_component_sizes(){
@@ -113,30 +123,30 @@ function calc_main_frame_component_sizes(){
 }
 
 function resize_main_frame_components(){
-	$("#main_frame").left(main_frame_L);
-	$("#main_frame").top(main_frame_T);
-	$("#main_frame").width(main_frame_W);
-	$("#main_frame").height(main_frame_H);
+	$("#main_frame").L(main_frame_L);
+	$("#main_frame").T(main_frame_T);
+	$("#main_frame").W(main_frame_W);
+	$("#main_frame").H(main_frame_H);
 	
-	$("#split_bar").left(split_bar_L);
-	$("#split_bar").top(split_bar_T);
-	$("#split_bar").width(split_bar_W);
-	$("#split_bar").height(split_bar_H);
+	$("#split_bar").L(split_bar_L);
+	$("#split_bar").T(split_bar_T);
+	$("#split_bar").W(split_bar_W);
+	$("#split_bar").H(split_bar_H);
 	
-	$("#split_bar_decor").left(split_bar_decor_L);
-	$("#split_bar_decor").top(split_bar_decor_T);
-	$("#split_bar_decor").width(split_bar_decor_W);
-	$("#split_bar_decor").height(split_bar_decor_H);
+	$("#split_bar_decor").L(split_bar_decor_L);
+	$("#split_bar_decor").T(split_bar_decor_T);
+	$("#split_bar_decor").W(split_bar_decor_W);
+	$("#split_bar_decor").H(split_bar_decor_H);
 	
-	$("#disp_area").left(disp_area_L);
-	$("#disp_area").top(disp_area_T);
-	$("#disp_area").width(disp_area_W);
-	$("#disp_area").height(disp_area_H);
+	$("#disp_area").L(disp_area_L);
+	$("#disp_area").T(disp_area_T);
+	$("#disp_area").W(disp_area_W);
+	$("#disp_area").H(disp_area_H);
 	
-	$("#ctrl_area").left(ctrl_area_L);
-	$("#ctrl_area").top(ctrl_area_T);
-	$("#ctrl_area").width(ctrl_area_W);
-	$("#ctrl_area").height(ctrl_area_H);
+	$("#ctrl_area").L(ctrl_area_L);
+	$("#ctrl_area").T(ctrl_area_T);
+	$("#ctrl_area").W(ctrl_area_W);
+	$("#ctrl_area").H(ctrl_area_H);
 }
 
 // Events

@@ -3,7 +3,6 @@
 *{
 	font-family: "SimHei", "Microsoft JhengHei", "STHeiti",
 				 "Noto Sans", sans-serif;
-	font-size: 24pt;
 }
 
 body{
@@ -98,7 +97,7 @@ div{
 }
 
 .menu_item{
-	padding: 20px;
+	
 }
 
 /***** Log (for debug use) *****/
@@ -108,6 +107,5 @@ div{
 	width: 100%;
 	height: 100%;
 	color: #FFFFFF;
-	font-size: 12pt;
 	text-align: right;
 }

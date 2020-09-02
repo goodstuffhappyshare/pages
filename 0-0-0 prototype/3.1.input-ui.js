@@ -24,8 +24,8 @@ function pretreat_ctrl_area_text(){
 }
 
 function calc_ctrl_area_sizes(){
-	ctrl_instr_W = $("#ctrl_instr").width();
-	ctrl_instr_H = $("#ctrl_instr").height();
+	ctrl_instr_W = $("#ctrl_instr").W();
+	ctrl_instr_H = $("#ctrl_instr").H();
 	
 	avail_width = ctrl_area_W - ctrl_area_pad * 2;
 	avail_height = ctrl_area_H - ctrl_area_pad * 3 - ctrl_instr_H;
@@ -34,13 +34,13 @@ function calc_ctrl_area_sizes(){
 }
 
 function resize_ctrl_area_components(){
-	$("#ctrl_instr").left( (ctrl_area_W - ctrl_instr_W) / 2.0 );
-	$("#ctrl_instr").top(ctrl_area_pad);
+	$("#ctrl_instr").L( (ctrl_area_W - ctrl_instr_W) / 2.0 );
+	$("#ctrl_instr").T(ctrl_area_pad);
 	
-	$("#f_box").left((ctrl_area_W - f_box_size) / 2.0);
-	$("#f_box").top(ctrl_area_pad * 2 + ctrl_instr_H);
-	$("#f_box").width(f_box_size);
-	$("#f_box").height(f_box_size);
+	$("#f_box").L((ctrl_area_W - f_box_size) / 2.0);
+	$("#f_box").T(ctrl_area_pad * 2 + ctrl_instr_H);
+	$("#f_box").W(f_box_size);
+	$("#f_box").H(f_box_size);
 }
 
 // Events
@@ -83,15 +83,15 @@ function y_from_f_box(Y){
 // Methods (button object)
 
 function set_f_btn_position(){
-	f_btn_left = x_to_f_box(f_btn_x) - $("#f_btn").width() / 2.0;
-	f_btn_top  = y_to_f_box(f_btn_y) - $("#f_btn").height() / 2.0;
-	$("#f_btn").left(f_btn_left);
-	$("#f_btn").top(f_btn_top);
+	f_btn_left = x_to_f_box(f_btn_x) - $("#f_btn").W() / 2.0;
+	f_btn_top  = y_to_f_box(f_btn_y) - $("#f_btn").H() / 2.0;
+	$("#f_btn").L(f_btn_left);
+	$("#f_btn").T(f_btn_top);
 }
 
 function read_f_btn_position(){
-	f_btn_X = $("#f_btn").left() + $("#f_btn").width() / 2.0;
-	f_btn_Y = $("#f_btn").top() + $("#f_btn").height() / 2.0;
+	f_btn_X = $("#f_btn").L() + $("#f_btn").W() / 2.0;
+	f_btn_Y = $("#f_btn").T() + $("#f_btn").H() / 2.0;
 	f_btn_x = x_from_f_box(f_btn_X);
 	f_btn_y = y_from_f_box(f_btn_Y);
 }
@@ -109,16 +109,16 @@ function create_force_line(){
 
 function redraw_force_line(){
 	$("#f_line").attr({
-		x1: f_box_size/2,
-		y1: f_box_size/2,
-		x2: x_to_f_box(f_btn_x),
-		y2: y_to_f_box(f_btn_y)
+		x1: f_box_size/2 * doc_scale,
+		y1: f_box_size/2 * doc_scale,
+		x2: x_to_f_box(f_btn_x) * doc_scale,
+		y2: y_to_f_box(f_btn_y) * doc_scale
 	});
 }
 
 function resize_f_box_svg(){
 	svg = $("#f_box").svg("get");
-	svg.configure({"width": f_box_size, "height": f_box_size});
+	svg.configure({"width": f_box_size * doc_scale, "height": f_box_size * doc_scale});
 }
 
 // Events

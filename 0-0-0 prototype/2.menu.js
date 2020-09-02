@@ -11,10 +11,14 @@
 
 //----- Menu Layout -----//
 
-// Values to be read from screen
+// Fixed Values
 
-var menu_item_height;
-var menu_item_width;
+var menu_item_pad = 10;
+var menu_item_H = 60;
+var menu_item_W = 350;
+
+var menu_item_outerW = menu_item_W + menu_item_pad * 2;
+var menu_item_outerH = menu_item_H + menu_item_pad * 2;
 
 // Values to be calculated
 
@@ -29,106 +33,96 @@ var menu_show = 0; // 0 means hidden, 1 means shown,
 
 // Methods
 
-function pretreat_menu_text(){
-	/* Make the menu very large to allow the menu items expand to a size most
-	   suitable for display, then read this size.                             */
-	$("#menu").width(1000);
-	$("#menu").height(1000);
-	
-	menu_item_width = $("#menu_go_to_list").outerWidth();
-	menu_item_height = $("#menu_go_to_list").outerHeight();
-}
-
 function calc_menu_item_sizes(){
 	if(doc_is_landscape){
-		menu_W = menu_item_width + menu_icon_size;
+		menu_W = menu_item_outerW + menu_icon_size;
 		menu_H = doc_H;
 		
-		menu_icon_L = menu_item_width;
+		menu_icon_L = menu_item_outerW;
 		menu_icon_T = 0;
 		menu_icon_W = menu_icon_size;
 		menu_icon_H = menu_icon_size;
 		
-		menu_item1_L = 0;
-		menu_item1_T = 0;
-		menu_item1_W = menu_item_width;
-		menu_item1_H = menu_item_height;
+		menu_item1_L = menu_item_pad;
+		menu_item1_T = menu_item_pad;
+		menu_item1_W = menu_item_W;
+		menu_item1_H = menu_item_H;
 		
-		menu_item2_L = 0;
-		menu_item2_T = menu_item_height;
-		menu_item2_W = menu_item_width;
-		menu_item2_H = menu_item_height;
+		menu_item2_L = menu_item_pad;
+		menu_item2_T = menu_item_outerH + menu_item_pad;
+		menu_item2_W = menu_item_W;
+		menu_item2_H = menu_item_H;
 		
-		menu_item3_L = 0;
-		menu_item3_T = menu_item_height * 2;
-		menu_item3_W = menu_item_width;
-		menu_item3_H = menu_item_height;
+		menu_item3_L = menu_item_pad;
+		menu_item3_T = menu_item_outerH * 2 + menu_item_pad;
+		menu_item3_W = menu_item_W;
+		menu_item3_H = menu_item_H;
 	}else{
 		menu_W = doc_W;
-		menu_H = menu_item_height * 3 + menu_icon_size;
+		menu_H = menu_item_outerH * 3 + menu_icon_size;
 		
-		menu_icon_L = 0;
-		menu_icon_T = menu_item_height * 3;
+		menu_icon_L = menu_item_pad;
+		menu_icon_T = menu_item_outerH * 3;
 		menu_icon_W = menu_icon_size;
 		menu_icon_H = menu_icon_size;
 		
-		menu_item1_L = 0;
-		menu_item1_T = 0;
-		menu_item1_W = menu_item_width;
-		menu_item1_H = menu_item_height;
+		menu_item1_L = menu_item_pad;
+		menu_item1_T = menu_item_pad;
+		menu_item1_W = menu_item_W;
+		menu_item1_H = menu_item_H;
 		
-		menu_item2_L = 0;
-		menu_item2_T = menu_item_height;
-		menu_item2_W = menu_item_width;
-		menu_item2_H = menu_item_height;
+		menu_item2_L = menu_item_pad;
+		menu_item2_T = menu_item_outerH + menu_item_pad;
+		menu_item2_W = menu_item_W;
+		menu_item2_H = menu_item_H;
 		
-		menu_item3_L = 0;
-		menu_item3_T = menu_item_height * 2;
-		menu_item3_W = menu_item_width;
-		menu_item3_H = menu_item_height;
+		menu_item3_L = menu_item_pad;
+		menu_item3_T = menu_item_outerH * 2 + menu_item_pad;
+		menu_item3_W = menu_item_W;
+		menu_item3_H = menu_item_H;
 	}
 }
 
 function resize_menu_items(){
-	$("#menu").width(menu_W);
-	$("#menu").height(menu_H);
+	$("#menu").W(menu_W);
+	$("#menu").H(menu_H);
 	
-	$("#menu_icon").left(menu_icon_L);
-	$("#menu_icon").top(menu_icon_T);
-	$("#menu_icon").width(menu_icon_W);
-	$("#menu_icon").height(menu_icon_H);
+	$("#menu_icon").L(menu_icon_L);
+	$("#menu_icon").T(menu_icon_T);
+	$("#menu_icon").W(menu_icon_W);
+	$("#menu_icon").H(menu_icon_H);
 	
-	$("#menu_switch_language").left(menu_item1_L);
-	$("#menu_switch_language").top(menu_item1_T);
-	$("#menu_switch_language").outerWidth(menu_item1_W);
-	$("#menu_switch_language").outerHeight(menu_item1_H);
+	$("#menu_switch_language").L(menu_item1_L);
+	$("#menu_switch_language").T(menu_item1_T);
+	$("#menu_switch_language").W(menu_item1_W);
+	$("#menu_switch_language").H(menu_item1_H);
 	
-	$("#menu_enter_fullscreen").left(menu_item2_L);
-	$("#menu_enter_fullscreen").top(menu_item2_T);
-	$("#menu_enter_fullscreen").outerWidth(menu_item2_W);
-	$("#menu_enter_fullscreen").outerHeight(menu_item2_H);
+	$("#menu_enter_fullscreen").L(menu_item2_L);
+	$("#menu_enter_fullscreen").T(menu_item2_T);
+	$("#menu_enter_fullscreen").W(menu_item2_W);
+	$("#menu_enter_fullscreen").H(menu_item2_H);
 	
-	$("#menu_exit_fullscreen").left(menu_item2_L);
-	$("#menu_exit_fullscreen").top(menu_item2_T);
-	$("#menu_exit_fullscreen").outerWidth(menu_item2_W);
-	$("#menu_exit_fullscreen").outerHeight(menu_item2_H);
+	$("#menu_exit_fullscreen").L(menu_item2_L);
+	$("#menu_exit_fullscreen").T(menu_item2_T);
+	$("#menu_exit_fullscreen").W(menu_item2_W);
+	$("#menu_exit_fullscreen").H(menu_item2_H);
 	
-	$("#menu_go_to_list").left(menu_item3_L);
-	$("#menu_go_to_list").top(menu_item3_T);
-	$("#menu_go_to_list").outerWidth(menu_item3_W);
-	$("#menu_go_to_list").outerHeight(menu_item3_H);
+	$("#menu_go_to_list").L(menu_item3_L);
+	$("#menu_go_to_list").T(menu_item3_T);
+	$("#menu_go_to_list").W(menu_item3_W);
+	$("#menu_go_to_list").H(menu_item3_H);
 }
 
 function set_menu_position(){
 	if(doc_is_landscape){
-		menu_L = (-1.0 + menu_show) * menu_item_width;
+		menu_L = (-1.0 + menu_show) * menu_item_outerW;
 		menu_T = 0;
 	}else{
 		menu_L = 0;
-		menu_T = (-1.0 + menu_show) * menu_item_height * 3;
+		menu_T = (-1.0 + menu_show) * menu_item_outerH * 3;
 	}
-	$("#menu").left(menu_L);
-	$("#menu").top(menu_T);
+	$("#menu").L(menu_L);
+	$("#menu").T(menu_T);
 }
 
 //----- Menu Animation -----//
@@ -227,7 +221,6 @@ function exit_fullscreen_on_click(){
 //----- Menu Events -----//
 
 function menu_init(){
-	pretreat_menu_text();
 	calc_menu_item_sizes();
 	resize_menu_items();
 	set_menu_position();
