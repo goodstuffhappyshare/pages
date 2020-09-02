@@ -6,6 +6,17 @@
 
 *******************************************************************************/
 
+/* When developing this propotype, I searched for methods to manipulate SVG
+   and somehow end up with "jQuery SVG", but later realized "SVG.js" might
+   have been a better option. Reasons:
+   
+   - It is more well-known and is still in active development.
+   - It is easier to use in general.
+   - I can extend it to auto-convert values to "document coordinates" and
+     avoid a lot of clumsy code below.
+   
+   I will probably swith to it in the real version.                           */
+
 //----- Display Area -----//
 
 // Dimensions
@@ -13,6 +24,7 @@
 var disp_area_pad = 15;
 var p_box_size;
 var p_box_size_min = 300;
+var p_box_border_width = 4;
 
 // Methods
 
@@ -28,6 +40,8 @@ function resize_disp_area_components(){
 	$("#p_box").T(disp_area_pad);
 	$("#p_box").W(p_box_size);
 	$("#p_box").H(p_box_size);
+	
+	$("#p_box").css("border-width", p_box_border_width * doc_scale);
 }
 
 // Events
@@ -118,6 +132,8 @@ function create_particle(id, offset_X, offset_Y){
 
 function redraw_particle(id, offset_X, offset_Y){
 	
+	svg = $("#p_box").svg("get");
+	
 	// Position of particle
 	
 	X = x_to_p_box(p_sx) + offset_X;
@@ -128,25 +144,46 @@ function redraw_particle(id, offset_X, offset_Y){
 	// Size of particle
 	
 	radius = length_to_p_box(p_size);
-	$("#particle_" + id).attr("r", radius * doc_scale);
+	
+	circle = svg.getElementById("particle_" + id);
+	svg.change(circle, {
+		r: radius * doc_scale,
+		strokeWidth: 4 * doc_scale
+	});
 	
 	// Velocity arrow
 	
 	v = Math.sqrt(p_vx*p_vx + p_vy*p_vy);
 	v_len = length_to_p_box(v) * v_scale;
 	v_angle = Math.atan2(p_vy, p_vx) * 180 / Math.PI;
-	$("#v_arrow_body_" + id).attr({
-		x1: 0,                 y1: 0,
-		x2: v_len * doc_scale, y2: 0
+	
+	line = svg.getElementById("v_arrow_body_" + id);
+	svg.change(line, {
+		x1: 0,
+		y1: 0,
+		x2: v_len * doc_scale,
+		y2: 0,
+		strokeWidth: 4 * doc_scale
 	});
-	$("#v_arrow_head1_" + id).attr({
-		x1: (v_len     ) * doc_scale, y1: ( 0 ) * doc_scale,
-		x2: (v_len - 10) * doc_scale, y2: (-10) * doc_scale
+	
+	line = svg.getElementById("v_arrow_head1_" + id);
+	svg.change(line, {
+		x1: (v_len     ) * doc_scale,
+		y1: (0         ) * doc_scale,
+		x2: (v_len - 10) * doc_scale,
+		y2: (-10       ) * doc_scale,
+		strokeWidth: 4 * doc_scale
 	});
-	$("#v_arrow_head2_" + id).attr({
-		x1: (v_len     ) * doc_scale, y1: ( 0) * doc_scale,
-		x2: (v_len - 10) * doc_scale, y2: (10) * doc_scale
+	
+	line = svg.getElementById("v_arrow_head2_" + id);
+	svg.change(line, {
+		x1: (v_len     ) * doc_scale,
+		y1: (0         ) * doc_scale,
+		x2: (v_len - 10) * doc_scale,
+		y2: (10        ) * doc_scale,
+		strokeWidth: 4 * doc_scale
 	});
+	
 	$("#v_arrow_" + id).attr({
 		transform: "rotate(" + v_angle + ")"
 	});
@@ -156,21 +193,38 @@ function redraw_particle(id, offset_X, offset_Y){
 	f = Math.sqrt(f_x*f_x + f_y*f_y);
 	f_len = length_to_p_box(f) * f_scale;
 	f_angle = Math.atan2(f_y, f_x) * 180 / Math.PI;
-	$("#f_arrow_body_" + id).attr({
-		x1: 0,                 y1: 0,
-		x2: f_len * doc_scale, y2: 0
+	
+	line = svg.getElementById("f_arrow_body_" + id);
+	svg.change(line, {
+		x1: 0,
+		y1: 0,
+		x2: f_len * doc_scale,
+		y2: 0,
+		strokeWidth: 4 * doc_scale
 	});
-	$("#f_arrow_head1_" + id).attr({
-		x1: (f_len     ) * doc_scale, y1: ( 0 ) * doc_scale,
-		x2: (f_len - 10) * doc_scale, y2: (-10) * doc_scale
+	
+	line = svg.getElementById("f_arrow_head1_" + id);
+	svg.change(line, {
+		x1: (f_len     ) * doc_scale,
+		y1: (0         ) * doc_scale,
+		x2: (f_len - 10) * doc_scale,
+		y2: (-10       ) * doc_scale,
+		strokeWidth: 4 * doc_scale
 	});
-	$("#f_arrow_head2_" + id).attr({
-		x1: (f_len     ) * doc_scale, y1: (0 ) * doc_scale,
-		x2: (f_len - 10) * doc_scale, y2: (10) * doc_scale
+	
+	line = svg.getElementById("f_arrow_head2_" + id);
+	svg.change(line, {
+		x1: (f_len     ) * doc_scale,
+		y1: (0         ) * doc_scale,
+		x2: (f_len - 10) * doc_scale,
+		y2: (10        ) * doc_scale,
+		strokeWidth: 4 * doc_scale
 	});
+	
 	$("#f_arrow_" + id).attr({
 		transform: "rotate(" + f_angle + ")"
 	});
+	
 	if(f_btn_is_dragging){
 		$("#f_arrow_" + id).attr("opacity", 1);
 	}else{

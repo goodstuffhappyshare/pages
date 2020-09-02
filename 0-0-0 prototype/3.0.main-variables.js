@@ -2,7 +2,8 @@
 
   ~ Main Variables ~
 
-  This script defines variables that will be shared among the next 3 scripts:
+  The main program starts here.
+  This script defines variables that will be shared among the next 3 files:
   - Input UI
   - Main Algorithm
   - Output Display
@@ -11,12 +12,14 @@
 
 // Dimensions
 
-/* I call this "internal coordinates" which are independent of the screen
-   size. All kinematics calculations are performed under this coordinate
-   system. In contrast, the coordinates used in the input and output UI are
-   what I call "display coordinates" which change with the layout dimensions.
-   To distinguish between them, I use lower case [x y w h] for "internal
-   coordinates" and upper case [X Y W H L T] for "display coordinates".        */
+/* I call this "internal coordinates" which is independent of the screen
+   layout. All kinematics calculations are performed under this coordinate
+   system. The input and output interface will provide conversion functions
+   between "internal coordinates" and "document coordinates".
+   
+   Note:
+   "Internal coordinates" are indicated with suffices [_x _y _w _h] while
+   "document coordinates" are indicated with suffices [_X _Y _L _T _W _H].    */
 
 f_x_min = -300;
 f_x_max = 300;

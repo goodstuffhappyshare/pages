@@ -11,22 +11,24 @@
 // Dimensions
 
 var ctrl_area_pad = 15;
+
 var f_box_size;
 var f_box_size_min = 150;
+var f_box_border_width = 1;
+
+var f_btn_border_width = 1;
 
 // Methods
 
 function pretreat_ctrl_area_text(){
 	/* put textboxs at positions where they are allowed to freely expand
-	   (or shrink) to a size suitable for display, then this size will be
-	   read by calc_ctrl_area_sizes().                                        */
+	   (or shrink) to a size suitable for display, then read this size.       */
 	$("#ctrl_instr").left(ctrl_area_pad*2);
+	ctrl_instr_W = $("#ctrl_instr").W();
+	ctrl_instr_H = $("#ctrl_instr").H();
 }
 
 function calc_ctrl_area_sizes(){
-	ctrl_instr_W = $("#ctrl_instr").W();
-	ctrl_instr_H = $("#ctrl_instr").H();
-	
 	avail_width = ctrl_area_W - ctrl_area_pad * 2;
 	avail_height = ctrl_area_H - ctrl_area_pad * 3 - ctrl_instr_H;
 	f_box_size = Math.min(avail_height, avail_width);
@@ -41,6 +43,11 @@ function resize_ctrl_area_components(){
 	$("#f_box").T(ctrl_area_pad * 2 + ctrl_instr_H);
 	$("#f_box").W(f_box_size);
 	$("#f_box").H(f_box_size);
+	$("#f_box").css("border-width", f_box_border_width * doc_scale);
+	
+	$("#f_btn").W(f_box_size / 3.0);
+	$("#f_btn").H(f_box_size / 3.0);
+	$("#f_btn").css("border-width", f_btn_border_width * doc_scale);
 }
 
 // Events
@@ -83,10 +90,10 @@ function y_from_f_box(Y){
 // Methods (button object)
 
 function set_f_btn_position(){
-	f_btn_left = x_to_f_box(f_btn_x) - $("#f_btn").W() / 2.0;
-	f_btn_top  = y_to_f_box(f_btn_y) - $("#f_btn").H() / 2.0;
-	$("#f_btn").L(f_btn_left);
-	$("#f_btn").T(f_btn_top);
+	f_btn_L = x_to_f_box(f_btn_x) - $("#f_btn").W() / 2.0;
+	f_btn_T  = y_to_f_box(f_btn_y) - $("#f_btn").H() / 2.0;
+	$("#f_btn").L(f_btn_L);
+	$("#f_btn").T(f_btn_T);
 }
 
 function read_f_btn_position(){
@@ -108,11 +115,14 @@ function create_force_line(){
 }
 
 function redraw_force_line(){
-	$("#f_line").attr({
+	svg = $("#f_box").svg("get");
+	line = svg.getElementById("f_line");
+	svg.change(line, {
 		x1: f_box_size/2 * doc_scale,
 		y1: f_box_size/2 * doc_scale,
 		x2: x_to_f_box(f_btn_x) * doc_scale,
-		y2: y_to_f_box(f_btn_y) * doc_scale
+		y2: y_to_f_box(f_btn_y) * doc_scale,
+		strokeWidth: 6 * doc_scale
 	});
 }
 

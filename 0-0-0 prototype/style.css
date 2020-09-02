@@ -1,3 +1,8 @@
+/* 
+  Note:
+  All sizes (including font size and border width) are to be set by javascript
+                                                                              */
+
 /***** Global Styles *****/
 
 *{
@@ -66,21 +71,19 @@ div{
 }
 
 #f_box{
-	border: 1px #000000 solid;
+	border: #000000 solid;
 	background-color: #FFFFFF;
 }
 
 #f_btn{
-	width: 80px;
-	height: 80px;
-	border: 1px #000000 solid;
+	border: #000000 solid;
 	background-color: #CCCCCC;
 }
 
 /***** Display Area *****/
 
 #p_box{
-	border: 4px #A6CC8C solid;
+	border: #A6CC8C solid;
 	overflow: hidden;
 }
 

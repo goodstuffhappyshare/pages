@@ -6,6 +6,8 @@
   - switch language
   - toggle full screen
   - visit page: "Physics Concepts resource list"
+  
+  Again, most of the script is just about positioning of blocks.
 
 *******************************************************************************/
 
@@ -107,10 +109,10 @@ function resize_menu_items(){
 	$("#menu_exit_fullscreen").W(menu_item2_W);
 	$("#menu_exit_fullscreen").H(menu_item2_H);
 	
-	$("#menu_go_to_list").L(menu_item3_L);
-	$("#menu_go_to_list").T(menu_item3_T);
-	$("#menu_go_to_list").W(menu_item3_W);
-	$("#menu_go_to_list").H(menu_item3_H);
+	$("#menu_view_all_topics").L(menu_item3_L);
+	$("#menu_view_all_topics").T(menu_item3_T);
+	$("#menu_view_all_topics").W(menu_item3_W);
+	$("#menu_view_all_topics").H(menu_item3_H);
 }
 
 function set_menu_position(){

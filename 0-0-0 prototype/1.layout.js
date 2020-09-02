@@ -2,8 +2,15 @@
 
   ~ Layout ~
 
-  This script sets up the main layout which has a control area and a display
-  area, separated by a draggle bar.
+  This script sets up the main layout. Everything is contained in the "doc"
+  object, inside which all lengths are measured in "document coordinates".
+  
+  Inside "doc" is a menu and a main frame, which contains a control area and
+  a display area, separated by a draggle bar. The menu will be set up in the
+  next file.
+  
+  Most of this script just does the boring job of reading, calculating and
+  changing positions and sizes of various blocks.
 
 *******************************************************************************/
 
@@ -11,17 +18,16 @@
 
 var doc_side_length = 720;
 
+var font_size = 40;
 var menu_icon_size = 80;
 
 var split_bar_thick = 20;
 var split_bar_decor_length = 80;
 var split_bar_decor_thick = 8;
 
-var font_size = 40;
-
 // Values to be read from screen
 
-var doc_width, doc_height;
+var doc_width, doc_height; // in pixels
 var split_bar_L, split_bar_T;
 
 // Values to be calculated
@@ -162,17 +168,18 @@ function layout_init(){
 	$("#split_bar").draggable({"containment":"parent"});
 	
 	$("#split_bar").on("drag", split_bar_on_drag);
-	$(window).resize(doc_on_resize);
+	$("#split_bar").on("stop", split_bar_on_drag);
+	$(window).resize(window_on_resize);
 }
 
 function split_bar_on_drag(){
 	read_split_bar_position();
-	calc_main_frame_component_sizes()
+	calc_main_frame_component_sizes();
 	resize_main_frame_components();
 	main_on_layout_change(); // tell "main-config" that layout is changed
 }
 
-function doc_on_resize(){
+function window_on_resize(){
 	split_ratio = doc_is_landscape ? 1.0 * split_bar_L / main_frame_W
 	                               : 1.0 * split_bar_T / main_frame_H;
 	read_doc_size();
