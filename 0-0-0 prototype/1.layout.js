@@ -176,7 +176,7 @@ function split_bar_on_drag(){
 	read_split_bar_position();
 	calc_main_frame_component_sizes();
 	resize_main_frame_components();
-	main_on_layout_change(); // tell "main-config" that layout is changed
+	trigger_on_layout_change(); // trigger is defined in "main-config"
 }
 
 function window_on_resize(){
@@ -194,5 +194,5 @@ function window_on_resize(){
 	}
 	calc_main_frame_component_sizes();
 	resize_main_frame_components();
-	main_on_layout_change(); // tell "main-config" that layout is changed
+	trigger_on_layout_change(); // trigger is defined in "main-config"
 }

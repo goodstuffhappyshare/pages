@@ -11,16 +11,14 @@
 
 //----- Event Triggers -----//
 
-function main_on_load(){
-	// call these functions when document is loaded
+function trigger_on_load(){
 	layout_init();
 	menu_init();
 	input_UI_init();
 	output_display_init();
 }
 
-function main_on_enter_frame(dt){
-	// call these functions in every new frame
+function trigger_on_enter_frame(dt){
 	// dt = time passed since last frame (in seconds)
 	input_UI_on_enter_frame(dt);
 	main_algorithm_on_enter_frame(dt);
@@ -31,8 +29,7 @@ function main_on_enter_frame(dt){
 	// $("#log").css("font-size", font_size*doc_scale/2.0 + "px");
 }
 
-function main_on_layout_change(){
-	// call these functions when the layout is changed
+function trigger_on_layout_change(){
 	menu_on_layout_change();
 	input_UI_on_layout_change();
 	output_display_on_layout_change();
@@ -51,7 +48,7 @@ function next_frame(timestamp){
 		time_prev = time_now;
 		time_now = timestamp;
 		dt = (time_now - time_prev) / 1000.0;
-		main_on_enter_frame(dt);
+		trigger_on_enter_frame(dt);
 		requestAnimationFrame(next_frame);
 	}
 }
@@ -59,6 +56,6 @@ function next_frame(timestamp){
 //----- Power On -----//
 
 $(document).ready(function(){
-	main_on_load();
+	trigger_on_load();
 	requestAnimationFrame(next_frame);
 });
