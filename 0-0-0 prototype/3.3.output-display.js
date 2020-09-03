@@ -7,7 +7,7 @@
 *******************************************************************************/
 
 /* When developing this propotype, I searched for methods to manipulate SVG
-   and somehow end up with "jQuery SVG", but later realized "SVG.js" might
+   and somehow ended up with "jQuery SVG", but later realized "SVG.js" might
    have been a better option. Reasons:
    
    - It is more well-known and is still in active development.

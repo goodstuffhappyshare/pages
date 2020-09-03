@@ -23,7 +23,7 @@ var f_btn_border_width = 1;
 function pretreat_ctrl_area_text(){
 	/* put textboxs at positions where they are allowed to freely expand
 	   (or shrink) to a size suitable for display, then read this size.       */
-	$("#ctrl_instr").left(ctrl_area_pad*2);
+	$("#ctrl_instr").L(ctrl_area_pad*2);
 	ctrl_instr_W = $("#ctrl_instr").W();
 	ctrl_instr_H = $("#ctrl_instr").H();
 }
