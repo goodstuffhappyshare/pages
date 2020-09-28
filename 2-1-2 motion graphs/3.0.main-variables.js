@@ -11,8 +11,8 @@
 
 *******************************************************************************/
 
-var t_start = 0.2;
-var t_end = 0.5;
+var t_start = 0.0;
+var t_end = 0.4;
 
 var s_graph_svg;
 var v_graph_svg;
