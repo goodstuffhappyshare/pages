@@ -1,0 +1,126 @@
+/* 
+  Note:
+  All sizes (including font size and border width) are to be set by javascript
+                                                                              */
+
+/***** Global Styles *****/
+
+*{
+	font-family: "SimHei", "Microsoft JhengHei", "STHeiti",
+				 "Noto Sans", sans-serif;
+}
+
+body{
+	padding: 0px;
+	background-color: #000000;
+}
+
+div{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	overflow: hidden;
+}
+
+/***** Top Level Layout *****/
+
+#doc{
+	width: 100%;
+	height: 100%;
+	background-color: #548234;
+}
+
+#main_frame{
+	
+}
+
+#menu{
+	z-index: 99999;
+	color: #FFFFFF;
+	background-color: rgba(0,0,0,0.8);
+}
+
+/***** Layout inside Main Frame *****/
+
+#ctrl_area{
+	color: #000000;
+	background-color: #CCCCCC;
+	overflow: auto;
+}
+
+#disp_area{
+	color: #FFFFFF;
+	background-color: #548234;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#split_bar{
+	background-color: #000000;
+}
+
+#split_bar_decor{
+	background-color: #FFFFFF;
+	opacity: 0.5;
+}
+
+/***** Control Area *****/
+
+#time_slider{
+	overflow: visible;
+}
+
+#options_form{
+	position: absolute;
+	text-align: center;
+}
+
+#options_form p{
+	margin-top: 0em;
+	margin-bottom: 0.5em;
+}
+
+/***** Display Area *****/
+
+.graph_caption{
+	color: #FFCCCC;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.graph_area{
+	
+}
+
+.axis_label{
+	color: #A6CC8C;
+}
+
+/***** Menu *****/
+
+#menu a:link, #menu a:visited{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+#menu a:hover, #menu a:active{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+.menu_item{
+	
+}
+
+/***** Log (for debug use) *****/
+
+#log{
+	z-index: 9999;
+	width: 100%;
+	height: 100%;
+	color: #FFFFFF;
+	text-align: right;
+}

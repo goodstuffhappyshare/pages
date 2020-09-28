@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!------------------------------------------------------------------------------
+|                                                                              |
+|                        DEMONSTRATION OF MOTION GRAPHS                        |
+|                                                                              |
+|                             Author: Jonathan Mok                             |
+|                          Last modified: 28 Sep 2020                          |
+|                                                                              |
+|         This web app is a supplementary material to a video lecture          |
+|                    "2-1 Mathematics of Motions (Part 2)"                     |
+|                            which can be found in                             |
+|            https://goodstuffhappyshare.wordpress.com/physics_eng/            |
+|                                                                              |
+|                       Available under the MIT license:                       |
+|           https://goodstuffhappyshare.github.io/pages/license.txt            |
+|                                                                              |
+------------------------------------------------------------------------------->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>示範：運動線圖</title>
+		
+		<!-- jQuery and jQuery UI -->
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+		
+		<!-- jQuery UI Touch Punch -->
+		<script src="library/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+		
+		<!-- jQuery Fullscreen --->
+		<script src="library/jquery.fullscreen/jquery.fullscreen.min.js"></script>
+		
+		<!-- SVG.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js"></script>
+		
+		<!-- my style sheet -->
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		
+		<!-- my scripts -->
+		<script src="0.my-library.js"></script>
+		<script src="1.main-layout.js"></script>
+		<script src="2.menu.js"></script>
+		<script src="3.0.main-variables.js"></script>
+		<script src="3.1.ctrl-area.js"></script>
+		<script src="3.2.main-algorithm.js"></script>
+		<script src="3.3.disp-area.js"></script>
+		<script src="4.main-config.js"></script>
+	</head>
+	<body>
+		<div id="doc">
+			<div id="main_frame">
+				<div id="ctrl_area">
+					<div id="time_slider"></div>
+					<form id="options_form">
+						<p>
+							<label for="motion_select">運動：</label>
+							<select id="motion_select">
+								<option value="0">勻加速運動</option>
+								<option value="1">勻速運動</option>
+								<option value="2">簡諧運動</option>
+								<option value="3">其他 #1</option>
+								<option value="4">其他 #2</option>
+							</select>
+						</p>
+						<p>
+							<label for="mode_select">模式：</label>
+							<select id="mode_select">
+								<option value="0">s-t 斜率</option>
+								<option value="1">v-t 面積</option>
+								<option value="2">v-t 斜率</option>
+								<option value="3">a-t 面積</option>
+							</select>
+						</p>
+					</form>
+				</div>
+				<div id="disp_area">
+					<div id="s_slope_caption" class="graph_caption">直線的斜率 = <span id="s_slope_value"></span></div>
+					<div id="s_graph" class="graph_area">
+						<div id="s_label_x" class="axis_label"><i>t</i> / s</div>
+						<div id="s_label_y" class="axis_label"><i>s</i> / m</div>
+					</div>
+					<div id="v_slope_caption" class="graph_caption">直線的斜率 = <span id="v_slope_value"></span></div>
+					<div id="v_area_caption" class="graph_caption">圖線下的面積 = <span id="v_area_value"></span></div>
+					<div id="v_graph" class="graph_area">
+						<div id="v_label_x" class="axis_label"><i>t</i> / s</div>
+						<div id="v_label_y" class="axis_label"><i>v</i> / m s<sup>-1</sup></div>
+					</div>
+					<div id="a_area_caption" class="graph_caption">圖線下的面積 = <span id="a_area_value"></span></div>
+					<div id="a_graph" class="graph_area">
+						<div id="a_label_x" class="axis_label"><i>t</i> / s</div>
+						<div id="a_label_y" class="axis_label"><i>a</i> / m s<sup>-2</sup></div>
+					</div>
+					<!-- Log (for debug use) ->
+						<div id="log"></div>
+					<!-- End log -->
+				</div>
+				<div id="split_bar" class="ui-widget-content">
+					<div id="split_bar_decor"></div>
+				</div>
+			</div>
+			<div id="menu">
+				<div id="menu_icon">
+					<img src="menu_icon.png" style="width:100%; height:100%">
+				</div>
+				<div class="menu_item" id="menu_switch_language">
+					<a href="sim-motion-graphs-e.html">English</a>
+				</div>
+				<div class="menu_item" id="menu_enter_fullscreen">
+					<a onclick="enter_fullscreen_on_click()">開啟全螢幕</a>
+				</div>
+				<div class="menu_item" id="menu_exit_fullscreen">
+					<a onclick="exit_fullscreen_on_click()">關閉全螢幕</a>
+				</div>
+				<div class="menu_item" id="menu_view_all_topics">
+					<a href="video.html">返回影片</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
