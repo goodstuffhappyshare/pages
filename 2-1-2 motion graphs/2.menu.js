@@ -65,7 +65,7 @@ function calc_menu_item_sizes(){
 		menu_W = doc_W;
 		menu_H = menu_item_outerH * 3 + menu_icon_size;
 		
-		menu_icon_L = menu_item_pad;
+		menu_icon_L = 0;
 		menu_icon_T = menu_item_outerH * 3;
 		menu_icon_W = menu_icon_size;
 		menu_icon_H = menu_icon_size;
