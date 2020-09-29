@@ -43,21 +43,21 @@ function ctrl_area_on_layout_change(){
 	update_ctrl_area_layout();
 }
 
-////////// OTHER THINGS ABOUT CONTROL AREA /////////////////////////////////////
+////////// CONTROL AREA COMPONENTS /////////////////////////////////////////////
 
 //----- Slider -----//
 
 function time_slider_init(){
-	$("#time_slider").slider({min:0, max:1, step:0.005, values:[t_start,t_end]});
+	$("#time_slider").slider({min:0, max:1, step:1.0/220.0, values:[t_start,t_end]});
 	$("#time_slider").on("slide", ctrl_on_t_change);
 }
 
-function ctrl_on_t_change(){
-	var t1 = $("#time_slider").slider("values", 0);
-	var t2 = $("#time_slider").slider("values", 1);
+function ctrl_on_t_change(e, ui){
+	var t1 = ui.values[0];
+	var t2 = ui.values[1];
 	t_start = Math.min(t1, t2);
 	t_end   = Math.max(t1, t2);
-	disp_on_t_change();
+	disp_on_t_change(); // trigger event for display area
 }
 
 //----- Options Form -----//
@@ -69,12 +69,12 @@ function options_form_init(){
 
 function ctrl_on_motion_change(){
 	motion_id = parseInt( $("#motion_select").val() );
-	disp_on_motion_change();
+	disp_on_motion_change(); // trigger event for display area
 }
 
 function ctrl_on_mode_change(){
 	mode_id = parseInt( $("#mode_select").val() );
-	disp_on_mode_change();
+	disp_on_mode_change(); // trigger event for display area
 }
 
 

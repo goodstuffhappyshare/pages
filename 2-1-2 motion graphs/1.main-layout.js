@@ -172,8 +172,9 @@ function main_layout_init(){
 	$(window).resize(window_on_resize);
 }
 
-function split_bar_on_drag(){
-	read_split_bar_position();
+function split_bar_on_drag(e, ui){
+	split_bar_L = 1.0 * ui.position.left / doc_scale;
+	split_bar_T = 1.0 * ui.position.top / doc_scale;
 	calc_main_frame_component_sizes();
 	
 	resize_main_layout_components();

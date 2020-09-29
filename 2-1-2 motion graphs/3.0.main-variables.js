@@ -18,9 +18,9 @@ var s_graph_svg;
 var v_graph_svg;
 var a_graph_svg;
 
-var s_graph_data = new Array(5);
-var v_graph_data = new Array(5);
-var a_graph_data = new Array(5);
+var s_graph_data = new Array();
+var v_graph_data = new Array();
+var a_graph_data = new Array();
 
 var motion_id = 0;
 var mode_id = 0;

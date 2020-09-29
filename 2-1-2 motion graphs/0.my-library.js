@@ -205,7 +205,7 @@ SVG.extend(SVG.Element, {
 	}
 });
 
-// Radius for circle, ellipse, rectangle
+// Radius for circle, rectangle
 
 SVG.extend(SVG.Shape, {
 	R: function(x){
@@ -228,16 +228,16 @@ SVG.extend(SVG.Text, {
 	},
 	cx: function(x){
 		if(typeof x !== "undefined"){
-			return this.x( x - this.width()/2.0 );
+			return this.x( x - this.bbox().width/2.0 );
 		}else{
-			return this.bbox().x + this.bbox().width/2.0;
+			return this.x() + this.bbox().width/2.0;
 		}
 	},
 	cy: function(x){
 		if(typeof x !== "undefined"){
-			return this.y( x - this.height()/2.0 );
+			return this.y( x - this.bbox().height/2.0 );
 		}else{
-			return this.bbox().y + this.bbox().height/2.0;
+			return this.y() + this.bbox().height/2.0;
 		}
 	}
 });

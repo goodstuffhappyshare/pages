@@ -13,11 +13,12 @@
 var disp_area_pad = 15;
 var graph_H = 300;
 var graph_W;
-var graph_W_min = 300;
+var graph_W_min = 400;
 
-var s_graph_caption_L, s_graph_caption_T, s_graph_caption_W, s_graph_caption_H;
-var v_graph_caption_L, v_graph_caption_T, v_graph_caption_W, v_graph_caption_H;
-var a_graph_caption_L, a_graph_caption_T, a_graph_caption_W, a_graph_caption_H;
+var s_graph_caption_L, s_graph_caption_T;
+var v_graph_caption_L, v_graph_caption_T;
+var a_graph_caption_L, a_graph_caption_T;
+var graph_caption_W, graph_caption_H;
 
 var s_graph_L, s_graph_T;
 var v_graph_L, v_graph_T;
@@ -25,61 +26,39 @@ var a_graph_L, a_graph_T;
 
 //----- Methods -----//
 
-function read_caption_size(){
-	/* Read the height of the graph captions; width is set to 100%.           */
-	
+function read_caption_height(){
 	$("#s_slope_caption").L(0);
 	$("#s_slope_caption").auto_size();
-	$("#v_slope_caption").L(0);
-	$("#v_slope_caption").auto_size();
-	$("#v_area_caption").L(0);
-	$("#v_area_caption").auto_size();
-	$("#a_area_caption").L(0);
-	$("#a_area_caption").auto_size();
-	
-	s_graph_caption_W = disp_area_W;
-	s_graph_caption_H = $("#s_slope_caption").H();
-	v_graph_caption_W = disp_area_W;
-	v_graph_caption_H = $("#v_slope_caption").H();
-	a_graph_caption_W = disp_area_W;
-	a_graph_caption_H = $("#a_area_caption").H();
-	
-	$("#s_slope_caption").W(s_graph_caption_W);
-	$("#s_slope_caption").H(s_graph_caption_H);
-	$("#v_slope_caption").W(v_graph_caption_W);
-	$("#v_slope_caption").H(v_graph_caption_H);
-	$("#v_area_caption").W(v_graph_caption_W);
-	$("#v_area_caption").H(v_graph_caption_H);
-	$("#a_area_caption").W(a_graph_caption_W);
-	$("#a_area_caption").H(a_graph_caption_H);
+	graph_caption_H = $("#s_slope_caption").H();
 }
 
 function calc_disp_area_sizes(){
 	// (Right side of graph has 1.5 padding)
 	var avail_W = disp_area_W - disp_area_pad * 2.5;
 	graph_W = Math.max(avail_W, graph_W_min);
+	graph_caption_W = disp_area_W;
 	
-	s_graph_caption_L = (avail_W - s_graph_caption_W) / 2.0 + disp_area_pad;
+	s_graph_caption_L = 0;
 	s_graph_caption_T = disp_area_pad;
 	s_graph_L = disp_area_pad;
-	s_graph_T = s_graph_caption_T + s_graph_caption_H;
+	s_graph_T = s_graph_caption_T + graph_caption_H;
 	
-	v_graph_caption_L = (avail_W - v_graph_caption_W) / 2.0 + disp_area_pad;
+	v_graph_caption_L = 0;
 	v_graph_caption_T = s_graph_T + graph_H + disp_area_pad;
 	v_graph_L = disp_area_pad;
-	v_graph_T = v_graph_caption_T + v_graph_caption_H;
+	v_graph_T = v_graph_caption_T + graph_caption_H;
 	
-	a_graph_caption_L = (avail_W - a_graph_caption_W) / 2.0 + disp_area_pad;
+	a_graph_caption_L = 0;
 	a_graph_caption_T = v_graph_T + graph_H + disp_area_pad;
 	a_graph_L = disp_area_pad;
-	a_graph_T = a_graph_caption_T + a_graph_caption_H;
+	a_graph_T = a_graph_caption_T + graph_caption_H;
 }
 
 function resize_disp_area_components(){
 	$("#s_slope_caption").L(s_graph_caption_L);
 	$("#s_slope_caption").T(s_graph_caption_T);
-	$("#s_slope_caption").W(s_graph_caption_W);
-	$("#s_slope_caption").H(s_graph_caption_H);
+	$("#s_slope_caption").W(graph_caption_W);
+	$("#s_slope_caption").H(graph_caption_H);
 	
 	$("#s_graph").L(s_graph_L);
 	$("#s_graph").T(s_graph_T);
@@ -88,12 +67,12 @@ function resize_disp_area_components(){
 	
 	$("#v_slope_caption").L(v_graph_caption_L);
 	$("#v_slope_caption").T(v_graph_caption_T);
-	$("#v_slope_caption").W(v_graph_caption_W);
-	$("#v_slope_caption").H(v_graph_caption_H);
+	$("#v_slope_caption").W(graph_caption_W);
+	$("#v_slope_caption").H(graph_caption_H);
 	$("#v_area_caption").L(v_graph_caption_L);
 	$("#v_area_caption").T(v_graph_caption_T);
-	$("#v_area_caption").W(v_graph_caption_W);
-	$("#v_area_caption").H(v_graph_caption_H);
+	$("#v_area_caption").W(graph_caption_W);
+	$("#v_area_caption").H(graph_caption_H);
 	
 	$("#v_graph").L(v_graph_L);
 	$("#v_graph").T(v_graph_T);
@@ -102,8 +81,8 @@ function resize_disp_area_components(){
 	
 	$("#a_area_caption").L(a_graph_caption_L);
 	$("#a_area_caption").T(a_graph_caption_T);
-	$("#a_area_caption").W(a_graph_caption_W);
-	$("#a_area_caption").H(a_graph_caption_H);
+	$("#a_area_caption").W(graph_caption_W);
+	$("#a_area_caption").H(graph_caption_H);
 	
 	$("#a_graph").L(a_graph_L);
 	$("#a_graph").T(a_graph_T);
@@ -114,7 +93,7 @@ function resize_disp_area_components(){
 function update_disp_area_layout(){
 	$("#disp_area *").font_H(font_size * 0.75);
 	$("#disp_area sup").font_H(font_size * 0.525);
-	read_caption_size();
+	read_caption_height();
 	calc_disp_area_sizes();
 	resize_disp_area_components();
 }
@@ -131,7 +110,43 @@ function disp_area_on_layout_change(){
 	graphs_on_layout_change();
 }
 
+////////// DISPLAY AREA COMPONENTS /////////////////////////////////////////////
+
+function graphs_init(){
+	s_graph_svg = SVG().addTo("#s_graph");
+	v_graph_svg = SVG().addTo("#v_graph");
+	a_graph_svg = SVG().addTo("#a_graph");
+	
+	init_all_svg();
+	update_all_graphs();
+	update_all_marks();
+}
+
+function graphs_on_layout_change(){
+	update_all_graphs();
+	update_all_marks();
+}
+
+function disp_on_motion_change(){
+	init_all_svg();
+	update_all_graphs();
+	update_all_marks();
+}
+
+function disp_on_t_change(){
+	update_all_marks();
+}
+
+function disp_on_mode_change(){
+	update_all_marks();
+}
+
 ////////// PLOTTING GRAPHS /////////////////////////////////////////////////////
+
+/* Currently, the labels at the tip of the axis uses a <div> tag while other
+   texts in the graphs uses SVG. The code might have been cleaner if all the
+   texts use SVG... but it is working now, so I don't want to spend time to
+   change it.                                                                 */
 
 //----- Fixed Values -----//
 
@@ -148,19 +163,18 @@ var curve_stroke_W = 4;
 var slope_line_stroke_W = 4;
 
 var end_points_R = 6;
-var end_points_stroke_W = 4;
-var dydx_arrow_head_L = 10;
-var dydx_arrow_sroke_W = 4;
-var dx_line_dasharray_L = 12;
+var change_arrow_head_L = 10;
+var change_sroke_W = 4;
+var change_line_dasharray_L = 12;
 
 //----- Temporary values shared between plotting functions -----//
 
-// Identifiers of the axis labels
+// Identifiers of the axis labels ("#s_label_x", etc)
 
 var axis_label_x;
 var axis_label_y;
 
-// Coordinate conversion
+// Coordinate conversion functions
 
 var x_to_graph;
 var y_to_graph;
@@ -185,101 +199,121 @@ var X1, X2, Y1, Y2;
 
 //----- External Methods -----//
 
-function create_graph(graph_svg, graph_data){
-	init_graph_svg(graph_svg, graph_data);
-	update_graph(graph_svg, graph_data)
+function init_all_svg(){
+	init_graph_svg(s_graph_svg, s_graph_data[motion_id]);
+	init_graph_svg(v_graph_svg, v_graph_data[motion_id]);
+	init_graph_svg(a_graph_svg, a_graph_data[motion_id]);
 }
+
+function update_all_graphs(){
+	update_graph(s_graph_svg, s_graph_data[motion_id]);
+	update_graph(v_graph_svg, v_graph_data[motion_id]);
+	update_graph(a_graph_svg, a_graph_data[motion_id]);
+}
+
+function update_all_marks(){
+	if(mode_id == 0){
+		show_slope_only  (s_graph_svg, s_graph_data[motion_id]);
+		show_average_only(v_graph_svg, v_graph_data[motion_id]);
+		hide_marks       (a_graph_svg, a_graph_data[motion_id]);
+	}else if(mode_id == 1){
+		show_change_only (s_graph_svg, s_graph_data[motion_id]);
+		show_area_only   (v_graph_svg, v_graph_data[motion_id]);
+		hide_marks       (a_graph_svg, a_graph_data[motion_id]);
+	}else if(mode_id == 2){
+		hide_marks       (s_graph_svg, s_graph_data[motion_id]);
+		show_slope_only  (v_graph_svg, v_graph_data[motion_id]);
+		show_average_only(a_graph_svg, a_graph_data[motion_id]);
+	}else if(mode_id == 3){
+		hide_marks       (s_graph_svg, s_graph_data[motion_id]);
+		show_change_only (v_graph_svg, v_graph_data[motion_id]);
+		show_area_only   (a_graph_svg, a_graph_data[motion_id]);
+	}
+}
+
+//----- Intermediate Methods -----//
 
 function update_graph(graph_svg, graph_data){
 	graph_svg.W(graph_W);
 	graph_svg.H(graph_H);
+	reset_axis_labels(graph_data.id);
 	
 	calc_graph_dimensions(graph_svg, graph_data);
 	redraw_axes(graph_svg, graph_data);
 	redraw_curve(graph_svg, graph_data);
 }
 
-function update_marks(){
-	if(mode_id == 0){
-		// Slope of s-t graph
-		
-		calc_graph_dimensions(s_graph_svg, s_graph_data[motion_id]);
-		show_slope           (s_graph_svg, s_graph_data[motion_id], v_graph_data[motion_id].fn(x1));
-		hide_area            (s_graph_svg, s_graph_data[motion_id]);
-		hide_change          (s_graph_svg);
-		hide_average         (s_graph_svg);
-		
-		calc_graph_dimensions(v_graph_svg, v_graph_data[motion_id]);
-		hide_slope           (v_graph_svg, v_graph_data[motion_id]);
-		hide_area            (v_graph_svg, v_graph_data[motion_id]);
-		hide_change          (v_graph_svg);
-		show_average         (v_graph_svg, v_graph_data[motion_id], (x2==x1) ? v_graph_data[motion_id].fn(x1) : (s_graph_data[motion_id].fn(x2) - s_graph_data[motion_id].fn(x1))/(x2-x1));
-		
-		calc_graph_dimensions(a_graph_svg, a_graph_data[motion_id]);
-		hide_slope           (a_graph_svg, a_graph_data[motion_id]);
-		hide_area            (a_graph_svg, a_graph_data[motion_id]);
-		hide_change          (a_graph_svg);
-		hide_average         (a_graph_svg);
-	}else if(mode_id == 1){
-		// Area under v-t graph
-		
-		calc_graph_dimensions(s_graph_svg, s_graph_data[motion_id]);
-		hide_slope           (s_graph_svg, s_graph_data[motion_id]);
-		hide_area            (s_graph_svg, s_graph_data[motion_id]);
-		show_change          (s_graph_svg, s_graph_data[motion_id]);
-		hide_average         (s_graph_svg);
-		
-		calc_graph_dimensions(v_graph_svg, v_graph_data[motion_id]);
-		hide_slope           (v_graph_svg, v_graph_data[motion_id]);
-		show_area            (v_graph_svg, v_graph_data[motion_id], s_graph_data[motion_id].fn(x2) - s_graph_data[motion_id].fn(x1) );
-		hide_change          (v_graph_svg);
-		hide_average         (v_graph_svg);
-		
-		calc_graph_dimensions(a_graph_svg, a_graph_data[motion_id]);
-		hide_slope           (a_graph_svg, a_graph_data[motion_id]);
-		hide_area            (a_graph_svg, a_graph_data[motion_id]);
-		hide_change          (a_graph_svg);
-		hide_average         (a_graph_svg);
-	}else if(mode_id == 2){
-		// Slope of v-t graph
-		
-		calc_graph_dimensions(s_graph_svg, s_graph_data[motion_id]);
-		hide_slope           (s_graph_svg, s_graph_data[motion_id]);
-		hide_area            (s_graph_svg, s_graph_data[motion_id]);
-		hide_change          (s_graph_svg);
-		hide_average         (s_graph_svg);
-		
-		calc_graph_dimensions(v_graph_svg, v_graph_data[motion_id]);
-		show_slope           (v_graph_svg, v_graph_data[motion_id], a_graph_data[motion_id].fn(x1));
-		hide_area            (v_graph_svg, v_graph_data[motion_id]);
-		hide_change          (v_graph_svg);
-		hide_average         (v_graph_svg);
-		
-		calc_graph_dimensions(a_graph_svg, a_graph_data[motion_id]);
-		hide_slope           (a_graph_svg, a_graph_data[motion_id]);
-		hide_area            (a_graph_svg, a_graph_data[motion_id]);
-		hide_change          (a_graph_svg);
-		show_average         (a_graph_svg, a_graph_data[motion_id], (x1==x2) ? a_graph_data[motion_id].fn(x1) : (v_graph_data[motion_id].fn(x2) - v_graph_data[motion_id].fn(x1))/(x2-x1));
-	}else if(mode_id == 3){
-		// Area under a-t graph
-		calc_graph_dimensions(s_graph_svg, s_graph_data[motion_id]);
-		hide_slope           (s_graph_svg, s_graph_data[motion_id]);
-		hide_area            (s_graph_svg, s_graph_data[motion_id]);
-		hide_change          (s_graph_svg);
-		hide_average         (s_graph_svg);
-		
-		calc_graph_dimensions(v_graph_svg, v_graph_data[motion_id]);
-		hide_slope           (v_graph_svg, v_graph_data[motion_id]);
-		hide_area            (v_graph_svg, v_graph_data[motion_id]);
-		show_change          (v_graph_svg, v_graph_data[motion_id]);
-		hide_average         (v_graph_svg);
-		
-		calc_graph_dimensions(a_graph_svg, a_graph_data[motion_id]);
-		hide_slope           (a_graph_svg, a_graph_data[motion_id]);
-		show_area            (a_graph_svg, a_graph_data[motion_id], v_graph_data[motion_id].fn(x2) - v_graph_data[motion_id].fn(x1));
-		hide_change          (a_graph_svg);
-		hide_average         (a_graph_svg);
+function show_slope_only(graph_svg, graph_data){
+	calc_graph_dimensions(graph_svg, graph_data);
+	
+	var derivative;
+	if(graph_data.id == "s"){
+		derivative = v_graph_data[motion_id].fn(x1);
+	}else if(graph_data.id == "v"){
+		derivative = a_graph_data[motion_id].fn(x1);
+	}else{
+		alert("Error: attempt to display slope of graphs other than s-t or v-t");
 	}
+	
+	show_slope           (graph_svg, graph_data, derivative);
+	hide_area            (graph_svg, graph_data);
+	hide_change          (graph_svg);
+	hide_average         (graph_svg);
+}
+
+function show_area_only(graph_svg, graph_data){
+	calc_graph_dimensions(graph_svg, graph_data);
+	
+	var area_value;
+	if(graph_data.id == "v"){
+		area_value = s_graph_data[motion_id].fn(x2) - s_graph_data[motion_id].fn(x1);
+	}else if(graph_data.id == "a"){
+		area_value = v_graph_data[motion_id].fn(x2) - v_graph_data[motion_id].fn(x1);
+	}else{
+		alert("Error: attempt to display area under graphs other than v-t or a-t");
+	}
+	
+	hide_slope           (graph_svg, graph_data);
+	show_area            (graph_svg, graph_data, area_value);
+	hide_change          (graph_svg);
+	hide_average         (graph_svg);
+}
+
+function show_change_only(graph_svg, graph_data){
+	calc_graph_dimensions(graph_svg, graph_data);
+	hide_slope           (graph_svg, graph_data);
+	hide_area            (graph_svg, graph_data);
+	show_change          (graph_svg, graph_data);
+	hide_average         (graph_svg);
+}
+
+function show_average_only(graph_svg, graph_data){
+	calc_graph_dimensions(graph_svg, graph_data);
+	
+	var avg_value;
+	if(graph_data.id == "v"){
+		avg_value = (x2==x1) ?
+		            v_graph_data[motion_id].fn(x1) :
+					(s_graph_data[motion_id].fn(x2) - s_graph_data[motion_id].fn(x1))/(x2-x1);
+	}else if(graph_data.id == "a"){
+		avg_value = (x2==x1) ?
+		            a_graph_data[motion_id].fn(x1) :
+					(v_graph_data[motion_id].fn(x2) - v_graph_data[motion_id].fn(x1))/(x2-x1);
+	}else{
+		alert("Error: attempt to display average value other than v¯ or a¯");
+	}
+	
+	hide_slope           (graph_svg, graph_data);
+	hide_area            (graph_svg, graph_data);
+	hide_change          (graph_svg);
+	show_average         (graph_svg, graph_data, avg_value);
+}
+
+function hide_marks(graph_svg, graph_data){
+	hide_slope           (graph_svg, graph_data);
+	hide_area            (graph_svg, graph_data);
+	hide_change          (graph_svg);
+	hide_average         (graph_svg);
 }
 
 //----- Internal Methods -----//
@@ -289,19 +323,6 @@ function init_graph_svg(graph_svg, graph_data){
 	var i;
 	
 	graph_svg.clear();
-	
-	// Fix size of axis labels
-	
-	axis_label_x = "#" + graph_data.id + "_label_x";
-	axis_label_y = "#" + graph_data.id + "_label_y";
-	
-	$(axis_label_x).L(0).T(0).auto_size();
-	$(axis_label_y).L(0).T(0).auto_size();
-	
-	$(axis_label_x).W( $(axis_label_x).W() );
-	$(axis_label_x).H( $(axis_label_x).H() );
-	$(axis_label_y).W( $(axis_label_y).W() );
-	$(axis_label_y).H( $(axis_label_y).H() );
 	
 	// Axes with ticks and labels
 	
@@ -344,11 +365,8 @@ function init_graph_svg(graph_svg, graph_data){
 	slope_line.stroke({color: "#FFCCCC", linecap: "round"});
 	
 	var slope_end_points = slope_group.group();
-	//slope_end_points.cross().R(end_points_R);
-	//slope_end_points.cross().R(end_points_R);
-	//slope_end_points.stroke({color: "#FFFF99", linecap: "round"});
-	slope_end_points.circle().R(end_points_R);
-	slope_end_points.circle().R(end_points_R);
+	slope_end_points.circle();
+	slope_end_points.circle();
 	slope_end_points.stroke({opacity: 0});
 	slope_end_points.fill("#FFFF99");
 	
@@ -363,7 +381,7 @@ function init_graph_svg(graph_svg, graph_data){
 	var slope_dy = slope_dydx.group();
 	var slope_dy_arrow = slope_dy.arrow();
 	slope_dy_arrow.stroke({color: "#FFE57F", linecap: "round", linejoin: "round"});
-	slope_dy_arrow.head_L(dydx_arrow_head_L);
+	slope_dy_arrow.head_L(change_arrow_head_L);
 	var slope_dy_text = slope_dy.text("");
 	slope_dy_text.fill("#FFE57F");
 	
@@ -382,11 +400,8 @@ function init_graph_svg(graph_svg, graph_data){
 	var change_group = graph_svg.group();
 	
 	var change_end_points = change_group.group();
-	//change_end_points.cross().R(end_points_R);
-	//change_end_points.cross().R(end_points_R);
-	//change_end_points.stroke({color: "#FFFF99", linecap: "round"});
-	change_end_points.circle().R(end_points_R);
-	change_end_points.circle().R(end_points_R);
+	change_end_points.circle();
+	change_end_points.circle();
 	change_end_points.stroke({opacity: 0});
 	change_end_points.fill("#FFFF99");
 	
@@ -399,7 +414,7 @@ function init_graph_svg(graph_svg, graph_data){
 	var change_dy = change_dydx.group();
 	var change_dy_arrow = change_dy.arrow();
 	change_dy_arrow.stroke({color: "#FFE57F", linecap: "round", linejoin: "round"});
-	change_dy_arrow.head_L(dydx_arrow_head_L);
+	change_dy_arrow.head_L(change_arrow_head_L);
 	var change_dy_text = change_dy.text("");
 	change_dy_text.fill("#FFE57F");
 	
@@ -408,11 +423,8 @@ function init_graph_svg(graph_svg, graph_data){
 	var average_group = graph_svg.group();
 	
 	var average_end_points = average_group.group();
-	//average_end_points.cross().R(end_points_R);
-	//average_end_points.cross().R(end_points_R);
-	//average_end_points.stroke({color: "#FFFF99", linecap: "round"});
-	average_end_points.circle().R(end_points_R);
-	average_end_points.circle().R(end_points_R);
+	average_end_points.circle();
+	average_end_points.circle();
 	average_end_points.stroke({opacity: 0});
 	average_end_points.fill("#FFFF99");
 	
@@ -439,6 +451,19 @@ function init_graph_svg(graph_svg, graph_data){
 	var area_clip = area_group.clip();
 	var clip_polygon = area_clip.polygon([0,0,0,0,0,0]);
 	area_rect.clipWith(area_clip);
+}
+
+function reset_axis_labels(graph_id){
+	axis_label_x = "#" + graph_id + "_label_x";
+	axis_label_y = "#" + graph_id + "_label_y";
+	
+	$(axis_label_x).L(0).T(0).auto_size();
+	$(axis_label_y).L(0).T(0).auto_size();
+	
+	$(axis_label_x).W( $(axis_label_x).W() );
+	$(axis_label_x).H( $(axis_label_x).H() );
+	$(axis_label_y).W( $(axis_label_y).W() );
+	$(axis_label_y).H( $(axis_label_y).H() );
 }
 
 function calc_graph_dimensions(graph_svg, graph_data){
@@ -621,9 +646,8 @@ function show_slope(graph_svg, graph_data, derivative){
 	
 	var slope_end_points = slope_group.get(1);
 	
-	slope_end_points.get(0).set_translation_XY( X1, Y1 );
-	slope_end_points.get(1).set_translation_XY( X2, Y2 );
-	slope_end_points.stroke_W(end_points_stroke_W);
+	slope_end_points.get(0).R(end_points_R).set_translation_XY( X1, Y1 );
+	slope_end_points.get(1).R(end_points_R).set_translation_XY( X2, Y2 );
 	
 	// Delta x and delta y
 	
@@ -634,7 +658,7 @@ function show_slope(graph_svg, graph_data, derivative){
 	}else{
 		var slope_dx_line = slope_dydx.get(0).get(0);
 		slope_dx_line.plot_XY([X1,Y1,X2,Y1]);
-		slope_dx_line.stroke_W(dydx_arrow_sroke_W);
+		slope_dx_line.stroke_W(change_sroke_W);
 		var slope_dx_text = slope_dydx.get(0).get(1);
 		slope_dx_text.clear();
 		slope_dx_text.build(true);
@@ -648,7 +672,7 @@ function show_slope(graph_svg, graph_data, derivative){
 		slope_dy_arrow.body_L( Math.abs(Y2-Y1) );
 		slope_dy_arrow.set_translation_XY( X2, Y1 );
 		slope_dy_arrow.set_rotation( y2>y1 ? -90 : 90);
-		slope_dy_arrow.stroke_W(dydx_arrow_sroke_W);
+		slope_dy_arrow.stroke_W(change_sroke_W);
 		var slope_dy_text = slope_dydx.get(1).get(1);
 		slope_dy_text.clear();
 		slope_dy_text.build(true);
@@ -708,9 +732,8 @@ function show_change(graph_svg, graph_data){
 	// End points
 	
 	var change_end_points = change_group.get(0);
-	change_end_points.get(0).set_translation_XY( X1, Y1 );
-	change_end_points.get(1).set_translation_XY( X2, Y2 );
-	change_end_points.stroke_W(end_points_stroke_W);
+	change_end_points.get(0).R(end_points_R).set_translation_XY( X1, Y1 );
+	change_end_points.get(1).R(end_points_R).set_translation_XY( X2, Y2 );
 	
 	// Delta x and delta y
 	
@@ -721,14 +744,14 @@ function show_change(graph_svg, graph_data){
 	}else{
 		var change_dx_line = change_dydx.get(0).get(0);
 		change_dx_line.plot_XY([X1,Y1,X2,Y1]);
-		change_dx_line.stroke_W(dydx_arrow_sroke_W);
-		change_dx_line.stroke_dasharray_L(dx_line_dasharray_L);
+		change_dx_line.stroke_W(change_sroke_W);
+		change_dx_line.stroke_dasharray_L(change_line_dasharray_L);
 		
 		var change_dy_arrow = change_dydx.get(1).get(0);
 		change_dy_arrow.body_L( Math.abs(Y2-Y1) );
 		change_dy_arrow.set_translation_XY( X2, Y1 );
 		change_dy_arrow.set_rotation( y2>y1 ? -90 : 90);
-		change_dy_arrow.stroke_W(dydx_arrow_sroke_W);
+		change_dy_arrow.stroke_W(change_sroke_W);
 		var change_dy_text = change_dydx.get(1).get(1);
 		change_dy_text.clear();
 		change_dy_text.build(true);
@@ -757,9 +780,8 @@ function show_average(graph_svg, graph_data, avg_value){
 	// End points
 	
 	var average_end_points = average_group.get(0);
-	average_end_points.get(0).set_translation_XY( X1, Y0 );
-	average_end_points.get(1).set_translation_XY( X2, Y0 );
-	average_end_points.stroke_W(end_points_stroke_W);
+	average_end_points.get(0).R(end_points_R).set_translation_XY( X1, Y0 );
+	average_end_points.get(1).R(end_points_R).set_translation_XY( X2, Y0 );
 	
 	// Lines
 	
@@ -773,17 +795,17 @@ function show_average(graph_svg, graph_data, avg_value){
 		average_dx_vline2.hide();
 	}else{
 		average_dx_hline.plot_XY([X1,Y0,X2,Y0]);
-		average_dx_hline.stroke_W(dydx_arrow_sroke_W);
+		average_dx_hline.stroke_W(change_sroke_W);
 		average_dx_hline.show();
 		
 		average_dx_vline1.plot_XY([X1,Y1,X1,Y0]);
-		average_dx_vline1.stroke_W(dydx_arrow_sroke_W);
-		average_dx_vline1.stroke_dasharray_L(dx_line_dasharray_L);
+		average_dx_vline1.stroke_W(change_sroke_W);
+		average_dx_vline1.stroke_dasharray_L(change_line_dasharray_L);
 		average_dx_vline1.show();
 		
 		average_dx_vline2.plot_XY([X2,Y2,X2,Y0]);
-		average_dx_vline2.stroke_W(dydx_arrow_sroke_W);
-		average_dx_vline2.stroke_dasharray_L(dx_line_dasharray_L);
+		average_dx_vline2.stroke_W(change_sroke_W);
+		average_dx_vline2.stroke_dasharray_L(change_line_dasharray_L);
 		average_dx_vline2.show();
 	}
 	
@@ -799,44 +821,3 @@ function show_average(graph_svg, graph_data, avg_value){
 	average_group.show();
 }
 
-////////// OTHER THINGS ABOUT DISPLAY AREA /////////////////////////////////////
-
-// Events
-
-function graphs_init(){
-	s_graph_svg = SVG().addTo("#s_graph");
-	v_graph_svg = SVG().addTo("#v_graph");
-	a_graph_svg = SVG().addTo("#a_graph");
-	
-	create_graph(s_graph_svg, s_graph_data[motion_id]);
-	create_graph(v_graph_svg, v_graph_data[motion_id]);
-	create_graph(a_graph_svg, a_graph_data[motion_id]);
-	
-	update_marks();
-}
-
-function graphs_on_layout_change(){
-	update_graph(s_graph_svg, s_graph_data[motion_id]);
-	update_graph(v_graph_svg, v_graph_data[motion_id]);
-	update_graph(a_graph_svg, a_graph_data[motion_id]);
-	
-	update_marks();
-}
-
-function disp_on_motion_change(){
-	create_graph(s_graph_svg, s_graph_data[motion_id]);
-	create_graph(v_graph_svg, v_graph_data[motion_id]);
-	create_graph(a_graph_svg, a_graph_data[motion_id]);
-	
-	update_marks();
-}
-
-function disp_on_t_change(){
-	
-	update_marks();
-	
-}
-
-function disp_on_mode_change(){
-	update_marks();
-}
