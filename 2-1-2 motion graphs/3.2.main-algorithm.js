@@ -187,3 +187,69 @@ a_graph_data.push({
 	y_ticks: [-0.5,0,0.5,1,1.5,500]
 });
 
+//----- Set 5 -----//
+
+function g(t){
+	return (128.0/27.0) * (
+		t*t*t*t*t*t*t * (1.0) +
+		t*t*t*t*t     * (-3.0) +
+		t*t*t         * (3.0) +
+		t             * (-1.0)
+	);
+}
+
+function gp(t){
+	return (128.0/27.0) * (
+		t*t*t*t*t*t * (7.0) +
+		t*t*t*t     * (-15.0) +
+		t*t         * (9.0) +
+		1           * (-1.0)
+	);
+}
+
+function gpp(t){
+	return (128.0/27.0) * (
+		t*t*t*t*t * (42.0) +
+		t*t*t     * (-60.0) +
+		t         * (18.0)
+	);
+}
+
+s_graph_data.push({
+	id: "s",
+	fn: function(t){
+		return (t<=2 || t>=4) ?
+		       0.5 :
+			   0.5 + 0.2*g(t-3.0);
+	},
+	x_range: [0,4.4],
+	y_range: [0,0.9],
+	x_ticks: [0,1,2,3,4],
+	y_ticks: [0,0.5,-9.9]
+});
+
+v_graph_data.push({
+	id: "v",
+	fn: function(t){
+		return (t<=2 || t>=4) ?
+		       0 :
+			   0.2*gp(t-3.0);
+	},
+	x_range: [0,4.4],
+	y_range: [-1.2,1],
+	x_ticks: [1,2,3,4],
+	y_ticks: [-1,-0.5,0,0.5,-9.9]
+});
+
+a_graph_data.push({
+	id: "a",
+	fn: function(t){
+		return (t<=2 || t>=4) ?
+		       0 :
+			   0.2*gpp(t-3.0);
+	},
+	x_range: [0,4.4],
+	y_range: [-5, 5],
+	x_ticks: [1,2,3,4],
+	y_ticks: [-4,0,4,-9.9]
+});

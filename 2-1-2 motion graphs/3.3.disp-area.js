@@ -228,6 +228,10 @@ function update_all_marks(){
 		hide_marks       (s_graph_svg, s_graph_data[motion_id]);
 		show_change_only (v_graph_svg, v_graph_data[motion_id]);
 		show_area_only   (a_graph_svg, a_graph_data[motion_id]);
+	}else if(mode_id == 4){
+		hide_marks       (s_graph_svg, s_graph_data[motion_id]);
+		hide_marks       (v_graph_svg, v_graph_data[motion_id]);
+		hide_marks       (a_graph_svg, a_graph_data[motion_id]);
 	}
 }
 
