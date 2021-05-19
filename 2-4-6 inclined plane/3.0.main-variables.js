@@ -84,5 +84,5 @@ var show_forces_y = true;
 
 //----- Others -----//
 
-var is_playing = true;
+var is_dragging_slider = false;
 var play_speed = 1.0;

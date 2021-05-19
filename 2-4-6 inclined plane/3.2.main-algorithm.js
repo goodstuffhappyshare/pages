@@ -49,7 +49,7 @@ function calc_forces(){
 				f = -f_max;
 				N1 = 0;
 				N2 = 0;
-				if(is_playing && play_speed!=0){
+				if(!is_dragging_slider && play_speed!=0){
 					block_is_moving = true;
 					block_is_leftmost = false;
 				}
@@ -67,7 +67,7 @@ function calc_forces(){
 				f = f_max;
 				N1 = 0;
 				N2 = 0;
-				if(is_playing && play_speed!=0){
+				if(!is_dragging_slider && play_speed!=0){
 					block_is_moving = true;
 					block_is_rightmost = false;
 				}
@@ -83,12 +83,12 @@ function calc_forces(){
 		}else{
 			if(FN0 > f_max){
 				f = -f_max;
-				if(is_playing && play_speed!=0){
+				if(!is_dragging_slider && play_speed!=0){
 					block_is_moving = true;
 				}
 			}else if(FN0 < -f_max){
 				f = f_max;
-				if(is_playing && play_speed!=0){
+				if(!is_dragging_slider && play_speed!=0){
 					block_is_moving = true;
 				}
 			}else{
@@ -105,7 +105,7 @@ function calc_forces(){
 
 function move_block(dt){
 	
-	if(is_playing && play_speed!=0 && block_is_moving){
+	if(!is_dragging_slider && play_speed!=0 && block_is_moving){
 		
 		block_a = (F + W_x + f) / m;
 		
@@ -137,12 +137,6 @@ function move_block(dt){
 		}
 	}
 }
-
-//----- Display -----//
-
-
-
-
 
 
 

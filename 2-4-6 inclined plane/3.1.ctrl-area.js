@@ -248,11 +248,11 @@ function ctrl_on_m_change(e, ui){
 }
 
 function jq_sliders_on_slidestart(){
-	is_playing = false;
+	is_dragging_slider = true;
 }
 
 function jq_sliders_on_slidestop(){
-	is_playing = true;
+	is_dragging_slider = false;
 }
 
 //----- Checkbox and Radio Button -----//

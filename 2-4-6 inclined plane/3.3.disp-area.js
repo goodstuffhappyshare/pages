@@ -448,10 +448,11 @@ function create_theta(){
 }
 
 function redraw_theta(){
-	
 	if(show_theta){
 		
 		theta_group.set_translation_XY( x_to_canvas(track_left), y_to_canvas(track_bottom) );
+		
+		// Redraw arc
 		
 		/* Extending SVG.js to convert "document coordinates" is rather troublesome
 		   in the case of path string so I will just do it manually here.         */
@@ -464,9 +465,11 @@ function redraw_theta(){
 		var end_x = arc_R * Math.cos(theta) * doc_scale;
 		var end_y = arc_R * Math.sin(theta) * doc_scale;
 		var path_str = "M" + start_x + " " + start_y
-					 + "A" + arc_r + " " + arc_r + " 0 0 1 " + end_x + " " + end_y;
+		             + "A" + arc_r + " " + arc_r + " 0 0 1 " + end_x + " " + end_y;
 		theta_arc.plot(path_str);
 		theta_arc.stroke_W(4);
+		
+		// Redraw dashed line
 		
 		var theta_line = theta_group.get(1);
 		var line_L = 104;
@@ -479,6 +482,8 @@ function redraw_theta(){
 		theta_line.stroke_W(2);
 		theta_line.stroke_dasharray_L(8);
 		
+		// Redraw label
+		
 		var theta_label_container = theta_group.get(2);
 		var theta_label = theta_label_container.get(0);
 		theta_label.text("θ").font("style","italic").font_H(font_size * 0.8);
@@ -486,6 +491,8 @@ function redraw_theta(){
 		var d = arc_R + font_size * 0.8;
 		theta_label_container.set_translation_XY( d * Math.cos(theta/2.0), d * Math.sin(theta/2.0) );
 		theta_label_container.set_rotation(theta / Math.PI * 180);
+		
+		// Show group
 		
 		theta_group.show();
 		
@@ -567,7 +574,6 @@ function create_s(){
 }
 
 function redraw_s(){
-	
 	if(show_s){
 		
 		var s_arrow = s_group.get(0);
@@ -624,157 +630,6 @@ function svg_obj_on_enter_frame(){
 function svg_obj_on_layout_change(){
 	redraw_canvas();
 }
-
-
-
-
-
-/*
-//----- p_box -----//
-
-// Variables
-
-var particle_r = 30; // radius of the particle in "internal coordinates"
-var v_scale = 0.5; // scale factor for velocity arrow
-var f_scale = 0.3; // scale factor for force arrow
-
-// Objects
-
-var p_box_svg;
-var p_box_particles = new Array(9);
-
-// Methods (conversion between coordinates)
-
-function x_to_p_box(x){
-	return 1.0 * (x - p_sx_min) / p_sx_range * p_box_size;
-}
-function y_to_p_box(y){
-	return 1.0 * (y - p_sy_min) / p_sy_range * p_box_size;
-}
-function length_to_p_box(len){
-	return 1.0 * len / p_sx_range * p_box_size;
-}
-
-// Methods (one particle)
-
-// i, j : [-1, 0, 1]
-
-function create_particle(i, j){
-	
-	var id = (i+1)*3 + (j+1);
-	
-	// A group containing a circle and two arrows
-	
-	var particle = p_box_svg.group();
-	p_box_particles[id] = particle;
-	
-	var circle = particle.circle(1);
-	circle.stroke({color: "#FFFFFF"});
-	circle.fill({opacity: 0});
-	
-	var v_arrow = particle.arrow();
-	v_arrow.stroke({color: "#FFE57F", linecap: "round", linejoin: "round"});
-	v_arrow.head_L(10);
-	
-	var f_arrow = particle.arrow();
-	f_arrow.stroke({color: "#FF0000", linecap: "round", linejoin: "round"});
-	f_arrow.head_L(10);
-	
-	redraw_particle(i, j);
-}
-
-function redraw_particle(i, j){
-	
-	var id = (i+1)*3 + (j+1);
-	var particle = p_box_particles[id];
-	
-	// Position of particle
-	
-	var X = x_to_p_box(p_sx) + i * p_box_size;
-	var Y = y_to_p_box(p_sy) + j * p_box_size;
-	particle.set_translation_XY(X,Y);
-	
-	// Size of particle
-	
-	var circle = particle.get(0);
-	circle.R( length_to_p_box(particle_r) );
-	circle.stroke_W(4);
-	
-	// Velocity arrow
-	
-	var v_arrow = particle.get(1);
-	
-	var v = Math.sqrt(p_vx*p_vx + p_vy*p_vy);
-	var v_len = length_to_p_box(v) * v_scale;
-	var v_angle = Math.atan2(p_vy, p_vx) * 180 / Math.PI;
-	
-	v_arrow.body_L(v_len);
-	v_arrow.set_rotation(v_angle);
-	v_arrow.stroke_W(4);
-	
-	// Force arrow
-	
-	var f_arrow = particle.get(2);
-	
-	if(f_btn_is_dragging){
-		f_arrow.show();
-		
-		var f = Math.sqrt(f_x*f_x + f_y*f_y);
-		var f_len = length_to_p_box(f) * f_scale;
-		var f_angle = Math.atan2(f_y, f_x) * 180 / Math.PI;
-		
-		f_arrow.body_L(f_len);
-		f_arrow.set_rotation(f_angle);
-		f_arrow.stroke_W(4);
-	}else{
-		f_arrow.hide();
-	}
-}
-
-// Methods (all particles)
-
-function create_particles(){
-	for(i=-1; i<=1; i++){
-		for(j=-1; j<=1; j++){
-			create_particle(i, j);
-		}
-	}
-}
-
-function redraw_particles(){
-	for(i=-1; i<=1; i++){
-		for(j=-1; j<=1; j++){
-			redraw_particle(i, j);
-		}
-	}
-}
-
-// Methods (others)
-
-function resize_p_box_svg(){
-	p_box_svg.W(p_box_size);
-	p_box_svg.H(p_box_size);
-}
-
-// Events
-
-function p_box_init(){
-	p_box_svg = SVG().addTo("#p_box");
-	create_particles();
-	resize_p_box_svg();
-}
-
-function p_box_on_enter_frame(dt){
-	redraw_particles();
-}
-
-function p_box_on_layout_change(){
-	redraw_particles();
-	resize_p_box_svg();
-}
-*/
-
-
 
 
 
