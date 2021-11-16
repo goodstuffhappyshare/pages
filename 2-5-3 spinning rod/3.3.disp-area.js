@@ -35,13 +35,13 @@ function disp_area_on_layout_change(){
     - rod_group
 	- LOA_group
 	- rE_group
-	- FE_group
 	- FP_group
-	- ang_v_group
-	- ang_a_group
+	- pivot_group
+	- FE_group
 	- CM_v_group
 	- CM_a_group
-	- pivot_group
+	- ang_v_group
+	- ang_a_group
    
    Coordinate conversion:
    Imagine a square box extending to the edges of the display area.
@@ -71,13 +71,13 @@ var canvas;
 var rod_group;
 var LOA_group;
 var rE_group;
-var FE_group;
 var FP_group;
-var ang_v_group;
-var ang_a_group;
+var pivot_group;
+var FE_group;
 var CM_v_group;
 var CM_a_group;
-var pivot_group;
+var ang_v_group;
+var ang_a_group;
 
 // Methods (conversion of coordinates)
 
@@ -111,13 +111,13 @@ function create_canvas(){
 	create_rod_group();
 	create_LOA_group();
 	create_rE_group();
-	create_FE_group();
 	create_FP_group();
-	create_ang_v_group();
-	create_ang_a_group();
+	create_pivot_group();
+	create_FE_group();
 	create_CM_v_group();
 	create_CM_a_group();
-	create_pivot_group();
+	create_ang_v_group();
+	create_ang_a_group();
 }
 
 function redraw_canvas(){
@@ -129,13 +129,13 @@ function redraw_canvas(){
 	redraw_rod_group();
 	redraw_LOA_group();
 	redraw_rE_group();
-	redraw_FE_group();
 	redraw_FP_group();
-	redraw_ang_v_group();
-	redraw_ang_a_group();
+	redraw_pivot_group();
+	redraw_FE_group();
 	redraw_CM_v_group();
 	redraw_CM_a_group();
-	redraw_pivot_group();
+	redraw_ang_v_group();
+	redraw_ang_a_group();
 }
 
 function create_rod_group(){
@@ -258,40 +258,6 @@ function redraw_rE_group(){
 	}
 }
 
-function create_FE_group(){
-	FE_group = canvas.group();
-	var FE_arrow = FE_group.arrow();
-	FE_arrow.stroke({color: "#FF0000", linecap: "round", linejoin: "round"});
-	FE_arrow.head_L(10);
-	var FE_label_container = FE_group.group();
-	var FE_label = FE_label_container.text("");
-	FE_label.fill("#FF0000");
-}
-
-function redraw_FE_group(){
-	if(FE){
-		var rE_L = rE * length_scale_factor;
-		var FE_L = Math.abs(FE * f_scale);
-		var FE_ang = ang_s + tE + (FE>0 ? 0 : Math.PI);
-		var FE_arrow = FE_group.get(0);
-		FE_arrow.body_L(FE_L);
-		FE_group.set_translation_XY( rE_L*Math.cos(-ang_s), rE_L*Math.sin(-ang_s) );
-		FE_arrow.set_rotation(-FE_ang / Math.PI * 180);
-		FE_arrow.stroke_W(4);
-		var FE_label_container = FE_group.get(1);
-		var FE_label = FE_label_container.get(0);
-		FE_label.clear();
-		FE_label.build(true);
-		FE_label.tspan("F").font("style","italic").font_H(font_size * 0.8);
-		FE_label.CX(0).CY(0);
-		FE_label_container.set_translation_XY( (FE_L+font_size*0.8)*Math.cos(-FE_ang), (FE_L+font_size*0.8)*Math.sin(-FE_ang) );
-		FE_label.tspan("E").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
-		FE_group.show();
-	}else{
-		FE_group.hide();
-	}
-}
-
 function create_FP_group(){
 	FP_group = canvas.group();
 	var FP_arrow = FP_group.arrow();
@@ -324,61 +290,50 @@ function redraw_FP_group(){
 	}
 }
 
-function create_ang_v_group(){
-	ang_v_group = canvas.group();
-	var ang_v_arrow = ang_v_group.arc_arrow();
-	ang_v_arrow.stroke({color: "#FFE57F", linecap: "round", linejoin: "round"});
-	ang_v_arrow.head_L(6);
-	var ang_v_label_container = ang_v_group.group();
-	var ang_v_label = ang_v_label_container.text("");
-	ang_v_label.fill("#FFE57F");
+function create_pivot_group(){
+	pivot_group = canvas.group();
+	var pivot_circle = pivot_group.circle(1);
+	pivot_circle.stroke({color: "#FFFFFF"});
+	pivot_circle.fill({color: "#548234", opacity: 1});
 }
 
-function redraw_ang_v_group(){
-	if(show_ang_v){
-		var ang_v_arrow = ang_v_group.get(0);
-		ang_v_arrow.R(ang_v_arrow_R);
-		ang_v_arrow.angles(0, -ang_v * ang_v_scale);
-		ang_v_arrow.stroke_W(2);
-		var ang_v_label_container = ang_v_group.get(1);
-		var ang_v_label = ang_v_label_container.get(0);
-		ang_v_label.clear();
-		ang_v_label.build(true);
-		ang_v_label.tspan("ω").font("style","italic").font_H(font_size * 0.6);
-		ang_v_label.CX(0).CY(0);
-		ang_v_label_container.set_translation_XY( ang_v_arrow_R, font_size*0.4*(ang_v>=0 ? 1 : -1) );
-		ang_v_group.show();
+function redraw_pivot_group(){
+	var pivot_circle = pivot_group.get(0);
+	pivot_circle.R(pivot_diameter * side_W / 2.0);
+	pivot_circle.stroke_W(4);
+}
+
+function create_FE_group(){
+	FE_group = canvas.group();
+	var FE_arrow = FE_group.arrow();
+	FE_arrow.stroke({color: "#FF0000", linecap: "round", linejoin: "round"});
+	FE_arrow.head_L(10);
+	var FE_label_container = FE_group.group();
+	var FE_label = FE_label_container.text("");
+	FE_label.fill("#FF0000");
+}
+
+function redraw_FE_group(){
+	if(FE){
+		var rE_L = rE * length_scale_factor;
+		var FE_L = Math.abs(FE * f_scale);
+		var FE_ang = ang_s + tE + (FE>0 ? 0 : Math.PI);
+		var FE_arrow = FE_group.get(0);
+		FE_arrow.body_L(FE_L);
+		FE_group.set_translation_XY( rE_L*Math.cos(-ang_s), rE_L*Math.sin(-ang_s) );
+		FE_arrow.set_rotation(-FE_ang / Math.PI * 180);
+		FE_arrow.stroke_W(4);
+		var FE_label_container = FE_group.get(1);
+		var FE_label = FE_label_container.get(0);
+		FE_label.clear();
+		FE_label.build(true);
+		FE_label.tspan("F").font("style","italic").font_H(font_size * 0.8);
+		FE_label.CX(0).CY(0);
+		FE_label_container.set_translation_XY( (FE_L+font_size*0.8)*Math.cos(-FE_ang), (FE_L+font_size*0.8)*Math.sin(-FE_ang) );
+		FE_label.tspan("E").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
+		FE_group.show();
 	}else{
-		ang_v_group.hide();
-	}
-}
-
-function create_ang_a_group(){
-	ang_a_group = canvas.group();
-	var ang_a_arrow = ang_a_group.arc_accel_arrow();
-	ang_a_arrow.stroke({color: "#FFCCCC", linecap: "round", linejoin: "round"});
-	ang_a_arrow.head_L(6);
-	var ang_a_label_container = ang_a_group.group();
-	var ang_a_label = ang_a_label_container.text("");
-	ang_a_label.fill("#FFCCCC");
-}
-
-function redraw_ang_a_group(){
-	if(show_ang_a && FE){
-		var ang_a_arrow = ang_a_group.get(0);
-		ang_a_arrow.R(ang_a_arrow_R);
-		ang_a_arrow.angles(0, -ang_a * ang_a_scale);
-		ang_a_arrow.stroke_W(2);
-		var ang_a_label_container = ang_a_group.get(1);
-		var ang_a_label = ang_a_label_container.get(0);
-		ang_a_label.clear();
-		ang_a_label.build(true);
-		ang_a_label.tspan("α").font("style","italic").font_H(font_size * 0.6);
-		ang_a_label.CX(0).CY(0);
-		ang_a_label_container.set_translation_XY( ang_a_arrow_R, font_size*0.4*(ang_a>=0 ? 1 : -1) );
-		ang_a_group.show();
-	}else{
-		ang_a_group.hide();
+		FE_group.hide();
 	}
 }
 
@@ -456,17 +411,62 @@ function redraw_CM_a_group(){
 	}
 }
 
-function create_pivot_group(){
-	pivot_group = canvas.group();
-	var pivot_circle = pivot_group.circle(1);
-	pivot_circle.stroke({color: "#FFFFFF"});
-	pivot_circle.fill({color: "#548234", opacity: 1});
+function create_ang_v_group(){
+	ang_v_group = canvas.group();
+	var ang_v_arrow = ang_v_group.arc_arrow();
+	ang_v_arrow.stroke({color: "#FFE57F", linecap: "round", linejoin: "round"});
+	ang_v_arrow.head_L(6);
+	var ang_v_label_container = ang_v_group.group();
+	var ang_v_label = ang_v_label_container.text("");
+	ang_v_label.fill("#FFE57F");
 }
 
-function redraw_pivot_group(){
-	var pivot_circle = pivot_group.get(0);
-	pivot_circle.R(pivot_diameter * side_W / 2.0);
-	pivot_circle.stroke_W(4);
+function redraw_ang_v_group(){
+	if(show_ang_v){
+		var ang_v_arrow = ang_v_group.get(0);
+		ang_v_arrow.R(ang_v_arrow_R);
+		ang_v_arrow.angles(0, -ang_v * ang_v_scale);
+		ang_v_arrow.stroke_W(2);
+		var ang_v_label_container = ang_v_group.get(1);
+		var ang_v_label = ang_v_label_container.get(0);
+		ang_v_label.clear();
+		ang_v_label.build(true);
+		ang_v_label.tspan("ω").font("style","italic").font_H(font_size * 0.6);
+		ang_v_label.CX(0).CY(0);
+		ang_v_label_container.set_translation_XY( ang_v_arrow_R, font_size*0.4*(ang_v>=0 ? 1 : -1) );
+		ang_v_group.show();
+	}else{
+		ang_v_group.hide();
+	}
+}
+
+function create_ang_a_group(){
+	ang_a_group = canvas.group();
+	var ang_a_arrow = ang_a_group.arc_accel_arrow();
+	ang_a_arrow.stroke({color: "#FFCCCC", linecap: "round", linejoin: "round"});
+	ang_a_arrow.head_L(6);
+	var ang_a_label_container = ang_a_group.group();
+	var ang_a_label = ang_a_label_container.text("");
+	ang_a_label.fill("#FFCCCC");
+}
+
+function redraw_ang_a_group(){
+	if(show_ang_a && FE){
+		var ang_a_arrow = ang_a_group.get(0);
+		ang_a_arrow.R(ang_a_arrow_R);
+		ang_a_arrow.angles(0, -ang_a * ang_a_scale);
+		ang_a_arrow.stroke_W(2);
+		var ang_a_label_container = ang_a_group.get(1);
+		var ang_a_label = ang_a_label_container.get(0);
+		ang_a_label.clear();
+		ang_a_label.build(true);
+		ang_a_label.tspan("α").font("style","italic").font_H(font_size * 0.6);
+		ang_a_label.CX(0).CY(0);
+		ang_a_label_container.set_translation_XY( ang_a_arrow_R, font_size*0.4*(ang_a>=0 ? 1 : -1) );
+		ang_a_group.show();
+	}else{
+		ang_a_group.hide();
+	}
 }
 
 // Events
