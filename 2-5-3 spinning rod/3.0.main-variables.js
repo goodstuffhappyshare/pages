@@ -11,7 +11,6 @@
 
 *******************************************************************************/
 
-
 /* I am using SI units for internal calculations here. m for length, s for
    time, kg for mass, N for force, radian for angle. The origin of the
    coordinate system is at the pivot, and the x- and y- axes respectively
@@ -64,10 +63,8 @@ var show_ang_a = false;
 var show_CM_v = false;
 var show_CM_a = false;
 
-
 //----- Others -----//
 
-var is_dragging_slider = false;
 var play_speed = 1.0;
 
 

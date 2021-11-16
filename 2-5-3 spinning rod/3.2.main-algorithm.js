@@ -28,8 +28,8 @@ function init_rod(){
 }
 
 function move_rod(dt){
-	ang_v += ang_a * dt * play_speed;
 	ang_s += ang_v * dt * play_speed;
+	ang_v += ang_a * dt * play_speed;
 	
 	while(ang_s < 0) ang_s += Math.PI*2.0;
 	while(ang_s >= Math.PI*2.0) ang_s -= Math.PI*2.0;

@@ -219,15 +219,11 @@ function jq_sliders_init(){
 	var rE_init = (rE - rE_min) / (rE_max - rE_min);
 	$("#rE_slider").slider({min:0, max:1, step:0.01, value:rE_init});
 	$("#rE_slider").on("slide", ctrl_on_rE_change);
-	$("#rE_slider").on("slidestart", jq_sliders_on_slidestart);
-	$("#rE_slider").on("slidestop", jq_sliders_on_slidestop);
 	$("#rE_slider").css("position", "absolute");
 	
 	var tE_init = (tE - tE_min) / (tE_max - tE_min);
 	$("#tE_slider").slider({min:0, max:1, step:1.0/36.0, value:tE_init});
 	$("#tE_slider").on("slide", ctrl_on_tE_change);
-	$("#tE_slider").on("slidestart", jq_sliders_on_slidestart);
-	$("#tE_slider").on("slidestop", jq_sliders_on_slidestop);
 	$("#tE_slider").css("position", "absolute");
 }
 
@@ -239,14 +235,6 @@ function ctrl_on_rE_change(e, ui){
 function ctrl_on_tE_change(e, ui){
 	var v = ui.value;
 	tE = v * (tE_max - tE_min) + tE_min;
-}
-
-function jq_sliders_on_slidestart(){
-	is_dragging_slider = true;
-}
-
-function jq_sliders_on_slidestop(){
-	is_dragging_slider = false;
 }
 
 //----- Checkbox and Radio Button -----//

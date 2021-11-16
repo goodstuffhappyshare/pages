@@ -205,10 +205,8 @@ function window_on_resize(){
 
 //----- Log for debug -----//
 
-/**/
 function log(message){
 	$("#log").append(message + "<br/>");
 	$("#log").scrollTop($("#log")[0].scrollHeight);
 	$("#log").font_H(20);
 }
-/**/

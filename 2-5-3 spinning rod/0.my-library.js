@@ -570,7 +570,7 @@ SVG.Arc_accel_arrow = class extends SVG.Arc_arrow{
 		var AR = this.AR;
 		this.tail_1.plot_XY([AR-D,-D,AR-D,D]);
 		this.tail_2.plot_XY([AR+D,-D,AR+D,D]);
-		this.tail_group.set_rotation(this.TS)
+		this.tail_group.set_rotation(this.TS);
 		return this;
 	}
 	R(x){

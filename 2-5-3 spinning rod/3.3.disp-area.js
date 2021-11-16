@@ -81,10 +81,10 @@ var ang_a_group;
 
 // Methods (conversion of coordinates)
 
-/* Note: ang_s, ang_v, ang_a take anti-clockwise as positive and use radian as
-   the unit. The set_rotation() function takes clockwise as positive and use
-   degree as the unit. Angles in "document coordinates" take clockwise as
-   positive.                                                                  */
+/* Note: Be very careful with angles!!!
+   ang_s, ang_v, ang_a: anti-clockwise as positive, radian as unit
+   set_rotation(): clockwise as positive, degree as unit
+   Math.sin(), Math.cos(): radian as unit                                     */
 
 var length_scale_factor;
 
@@ -102,11 +102,14 @@ function y_to_canvas(y){
 	return -y * length_scale_factor;
 }
 
+function angle_to_canvas(t){
+	return -t / Math.PI * 180.0;
+}
+
 // Methods (drawing)
 
 function create_canvas(){
 	canvas = disp_svg.group();
-	calc_length_scale_factor();
 	
 	create_rod_group();
 	create_LOA_group();
@@ -154,7 +157,7 @@ function redraw_rod_group(){
 	var B = X2;
 	var T = -X2;
 	rod_poly.plot_XY([L,B,R,B,R,T,L,T]);
-	rod_poly.set_rotation(-ang_s / Math.PI * 180);
+	rod_poly.set_rotation( angle_to_canvas(ang_s) );
 	rod_poly.stroke_W(4);
 	/* Opacity is 1 by default, will be changed to 0.5 if any of the following
 	   is visible:
@@ -191,19 +194,19 @@ function redraw_LOA_group(){
 		LOA_line.stroke_W(2);
 		LOA_line.stroke_dasharray_L(8);
 		LOA_line_group.set_translation_XY( x_to_canvas(rE_x), y_to_canvas(rE_y) );
-		LOA_line_group.set_rotation(-(ang_s+tE-Math.PI/2.0) / Math.PI * 180);
+		LOA_line_group.set_rotation( angle_to_canvas(ang_s+tE-Math.PI/2.0) );
 		
 		var tE_line_group = LOA_group.get(1);
 		var tE_line = tE_line_group.get(0);
-		tE_line.plot([0,0,L,0]);
+		tE_line.plot([0,0,L/2.0,0]);
 		tE_line.stroke_W(2);
 		tE_line.stroke_dasharray_L(8);
-		tE_line_group.set_rotation(-ang_s / Math.PI * 180);
+		tE_line_group.set_rotation( angle_to_canvas(ang_s) );
 		
 		var tE_corr = (FE>=0) ? tE : tE-Math.PI;
 		var tE_arrow = LOA_group.get(2);
 		tE_arrow.R(20);
-		tE_arrow.angles(-ang_s/Math.PI*180.0, -(ang_s+tE_corr)/Math.PI*180.0);
+		tE_arrow.angles( angle_to_canvas(ang_s), angle_to_canvas(ang_s+tE_corr) );
 		tE_arrow.set_translation_XY( x_to_canvas(rE_x), y_to_canvas(rE_y) );
 		tE_arrow.stroke_W(2);
 		var tE_label_container = LOA_group.get(3);
@@ -212,7 +215,10 @@ function redraw_LOA_group(){
 		tE_label.build(true);
 		tE_label.tspan("θ").font("style","italic").font_H(font_size * 0.8);
 		tE_label.CX(0).CY(0);
-		tE_label_container.set_translation_XY( x_to_canvas(rE_x) + (20+font_size*0.8)*Math.cos(-ang_s-tE_corr/2.0), y_to_canvas(rE_y) + (20+font_size*0.8)*Math.sin(-ang_s-tE_corr/2.0) );
+		tE_label_container.set_translation_XY(
+			x_to_canvas(rE_x) + (20+font_size*0.8)*Math.cos(-(ang_s+tE_corr)/2.0),
+			y_to_canvas(rE_y) + (20+font_size*0.8)*Math.sin(-(ang_s+tE_corr)/2.0)
+		);
 		tE_label.tspan("E").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
 		
 		LOA_group.show();
@@ -239,7 +245,7 @@ function redraw_rE_group(){
 		var rE_L = rE * length_scale_factor;
 		var rE_arrow = rE_group.get(0);
 		rE_arrow.body_L(rE_L);
-		rE_arrow.set_rotation(-ang_s / Math.PI * 180);
+		rE_arrow.set_rotation( angle_to_canvas(ang_s) );
 		rE_arrow.stroke_W(4);
 		var rE_label_container = rE_group.get(1);
 		var rE_label = rE_label_container.get(0);
@@ -247,7 +253,10 @@ function redraw_rE_group(){
 		rE_label.build(true);
 		rE_label.tspan("r").font("style","italic").font_H(font_size * 0.8);
 		rE_label.CX(0).CY(0);
-		rE_label_container.set_translation_XY( rE_L*0.5*Math.cos(-ang_s) - font_size*0.8*Math.sin(-ang_s), rE_L*0.5*Math.sin(-ang_s) + font_size*0.8*Math.cos(-ang_s) );
+		rE_label_container.set_translation_XY(
+			rE_L*0.5*Math.cos(-ang_s) - font_size*0.8*Math.sin(-ang_s),
+			rE_L*0.5*Math.sin(-ang_s) + font_size*0.8*Math.cos(-ang_s)
+		);
 		rE_label.tspan("E").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
 		rE_group.show();
 		
@@ -274,7 +283,7 @@ function redraw_FP_group(){
 		var FP_ang = Math.atan2(FP_y, FP_x);
 		var FP_arrow = FP_group.get(0);
 		FP_arrow.body_L(FP_L);
-		FP_arrow.set_rotation(-FP_ang / Math.PI * 180);
+		FP_arrow.set_rotation( angle_to_canvas(FP_ang) );
 		FP_arrow.stroke_W(4);
 		var FP_label_container = FP_group.get(1);
 		var FP_label = FP_label_container.get(0);
@@ -282,7 +291,10 @@ function redraw_FP_group(){
 		FP_label.build(true);
 		FP_label.tspan("F").font("style","italic").font_H(font_size * 0.8);
 		FP_label.CX(0).CY(0);
-		FP_label_container.set_translation_XY( (FP_L+font_size*0.8)*Math.cos(-FP_ang), (FP_L+font_size*0.8)*Math.sin(-FP_ang) );
+		FP_label_container.set_translation_XY(
+			(FP_L+font_size*0.8)*Math.cos(-FP_ang),
+			(FP_L+font_size*0.8)*Math.sin(-FP_ang)
+		);
 		FP_label.tspan("P").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
 		FP_group.show();
 	}else{
@@ -321,7 +333,7 @@ function redraw_FE_group(){
 		var FE_arrow = FE_group.get(0);
 		FE_arrow.body_L(FE_L);
 		FE_group.set_translation_XY( rE_L*Math.cos(-ang_s), rE_L*Math.sin(-ang_s) );
-		FE_arrow.set_rotation(-FE_ang / Math.PI * 180);
+		FE_arrow.set_rotation( angle_to_canvas(FE_ang) );
 		FE_arrow.stroke_W(4);
 		var FE_label_container = FE_group.get(1);
 		var FE_label = FE_label_container.get(0);
@@ -329,7 +341,10 @@ function redraw_FE_group(){
 		FE_label.build(true);
 		FE_label.tspan("F").font("style","italic").font_H(font_size * 0.8);
 		FE_label.CX(0).CY(0);
-		FE_label_container.set_translation_XY( (FE_L+font_size*0.8)*Math.cos(-FE_ang), (FE_L+font_size*0.8)*Math.sin(-FE_ang) );
+		FE_label_container.set_translation_XY(
+			(FE_L+font_size*0.8)*Math.cos(-FE_ang),
+			(FE_L+font_size*0.8)*Math.sin(-FE_ang)
+		);
 		FE_label.tspan("E").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
 		FE_group.show();
 	}else{
@@ -354,8 +369,8 @@ function redraw_CM_v_group(){
 		var CM_v_ang = Math.atan2(CM_v_y, CM_v_x);
 		var CM_v_arrow = CM_v_group.get(0);
 		CM_v_arrow.body_L(CM_v_L);
-		CM_v_group.set_translation_XY( CM_r_L*Math.cos(-ang_s) ,CM_r_L*Math.sin(-ang_s) );
-		CM_v_arrow.set_rotation(-CM_v_ang / Math.PI * 180);
+		CM_v_group.set_translation_XY( CM_r_L*Math.cos(-ang_s), CM_r_L*Math.sin(-ang_s) );
+		CM_v_arrow.set_rotation( angle_to_canvas(CM_v_ang) );
 		CM_v_arrow.stroke_W(4);
 		var CM_v_label_container = CM_v_group.get(1);
 		var CM_v_label = CM_v_label_container.get(0);
@@ -363,7 +378,10 @@ function redraw_CM_v_group(){
 		CM_v_label.build(true);
 		CM_v_label.tspan("v").font("style","italic").font_H(font_size * 0.8);
 		CM_v_label.CX(0).CY(0);
-		CM_v_label_container.set_translation_XY( (CM_v_L+font_size*0.8)*Math.cos(-CM_v_ang), (CM_v_L+font_size*0.8)*Math.sin(-CM_v_ang) );
+		CM_v_label_container.set_translation_XY(
+			(CM_v_L+font_size*0.8)*Math.cos(-CM_v_ang),
+			(CM_v_L+font_size*0.8)*Math.sin(-CM_v_ang)
+		);
 		CM_v_label.tspan("CM").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
 		CM_v_group.show();
 		
@@ -391,8 +409,8 @@ function redraw_CM_a_group(){
 		var CM_a_ang = Math.atan2(CM_a_y, CM_a_x);
 		var CM_a_arrow = CM_a_group.get(0);
 		CM_a_arrow.body_L(CM_a_L);
-		CM_a_group.set_translation_XY( CM_r_L*Math.cos(-ang_s) ,CM_r_L*Math.sin(-ang_s) );
-		CM_a_arrow.set_rotation(-CM_a_ang / Math.PI * 180);
+		CM_a_group.set_translation_XY( CM_r_L*Math.cos(-ang_s), CM_r_L*Math.sin(-ang_s) );
+		CM_a_arrow.set_rotation( angle_to_canvas(CM_a_ang) );
 		CM_a_arrow.stroke_W(4);
 		var CM_a_label_container = CM_a_group.get(1);
 		var CM_a_label = CM_a_label_container.get(0);
@@ -400,7 +418,10 @@ function redraw_CM_a_group(){
 		CM_a_label.build(true);
 		CM_a_label.tspan("a").font("style","italic").font_H(font_size * 0.8);
 		CM_a_label.CX(0).CY(0);
-		CM_a_label_container.set_translation_XY( (CM_a_L+font_size*0.8)*Math.cos(-CM_a_ang), (CM_a_L+font_size*0.8)*Math.sin(-CM_a_ang) );
+		CM_a_label_container.set_translation_XY(
+			(CM_a_L+font_size*0.8)*Math.cos(-CM_a_ang),
+			(CM_a_L+font_size*0.8)*Math.sin(-CM_a_ang)
+		);
 		CM_a_label.tspan("CM").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
 		CM_a_group.show();
 		
@@ -433,7 +454,10 @@ function redraw_ang_v_group(){
 		ang_v_label.build(true);
 		ang_v_label.tspan("ω").font("style","italic").font_H(font_size * 0.6);
 		ang_v_label.CX(0).CY(0);
-		ang_v_label_container.set_translation_XY( ang_v_arrow_R, font_size*0.4*(ang_v>=0 ? 1 : -1) );
+		ang_v_label_container.set_translation_XY(
+			ang_v_arrow_R,
+			font_size * 0.4 * (ang_v>=0 ? 1 : -1)
+		);
 		ang_v_group.show();
 	}else{
 		ang_v_group.hide();
@@ -462,7 +486,10 @@ function redraw_ang_a_group(){
 		ang_a_label.build(true);
 		ang_a_label.tspan("α").font("style","italic").font_H(font_size * 0.6);
 		ang_a_label.CX(0).CY(0);
-		ang_a_label_container.set_translation_XY( ang_a_arrow_R, font_size*0.4*(ang_a>=0 ? 1 : -1) );
+		ang_a_label_container.set_translation_XY(
+			ang_a_arrow_R,
+			font_size * 0.4 * (ang_a>=0 ? 1 : -1)
+		);
 		ang_a_group.show();
 	}else{
 		ang_a_group.hide();
