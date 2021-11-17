@@ -111,10 +111,10 @@ function resize_menu_items(){
 	$("#menu_exit_fullscreen").W(menu_item2_W);
 	$("#menu_exit_fullscreen").H(menu_item2_H);
 	
-	$("#menu_view_all_topics").L(menu_item3_L);
-	$("#menu_view_all_topics").T(menu_item3_T);
-	$("#menu_view_all_topics").W(menu_item3_W);
-	$("#menu_view_all_topics").H(menu_item3_H);
+	$("#menu_back_to_video").L(menu_item3_L);
+	$("#menu_back_to_video").T(menu_item3_T);
+	$("#menu_back_to_video").W(menu_item3_W);
+	$("#menu_back_to_video").H(menu_item3_H);
 }
 
 function set_menu_position(){

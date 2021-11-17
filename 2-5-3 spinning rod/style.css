@@ -7,7 +7,7 @@
 
 *{
 	font-family: "SimHei", "Microsoft JhengHei", "STHeiti",
-				 "Noto Sans", sans-serif;
+	             "Noto Sans", "Noto Sans TC", "Noto Sans CJK TC", sans-serif;
 }
 
 body{
@@ -82,6 +82,10 @@ div{
 	overflow: visible;
 }
 
+.var_font{
+	font-style: italic;
+}
+
 #FE_slider{
 	border: #000000 solid;
 	background-color: #FFFFFF;
@@ -96,20 +100,11 @@ div{
 	overflow: visible;
 }
 
-.var_font{
-	font-style: italic;
-}
-
 #display_options{
 	position: absolute;
 }
 
 /***** Display Area *****/
-
-#p_box{
-	border: #A6CC8C solid;
-	overflow: hidden;
-}
 
 /***** Menu *****/
 
