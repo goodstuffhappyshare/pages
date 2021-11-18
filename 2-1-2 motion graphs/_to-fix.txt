@@ -1,0 +1,45 @@
+
+ [v] Update axes and curve when display area layout is changed
+ [v] Clean up code about calculating dimensions within graph
+     - implement the MX and MY extensions (maximum X, maximum Y)
+ [v] Clean up code about document tree within graph
+     - make sure all variable names are proper
+     - be clear about life scope of each variable
+ [v] Solve the area clipping problem
+ [v] Display values of dx and dy in the "slope" group
+     - italics text
+     - maybe let dt be a line instead of arrow
+ [v] Implement the "change" group
+     - show value of dy
+ [v] Implement the "average" group
+     - show value of y bar
+     - overline text
+ [v] Implement "change mode"
+ [v] Implement the special case where x1 = x2
+     [v] slope
+     [x] area
+     [v] change
+     [v] average
+ [v] Implement the graph captions
+ [v] Improve the layout of the control area
+ [v] Order:
+     0 - Uniformly accelerated motion
+     1 - Uniform motion
+     2 - Simple harmonic motion
+     3 - Miscellaneous #1
+     4 - Miscellaneous #2
+ [v] 中文版
+ [v] Clean up the code... again
+ [v] Fix the axis labels resizing issue
+ [x] Use SVG to do axis labels?
+
+----------
+
+Things to transfer to the next app:
+ - a bigger "my library"
+ - fix for menu icon position
+ - fix for jQuery UI draggable
+ - include jQuery UI style sheet
+ - "structure first, then details" approach for organizing script
+
+

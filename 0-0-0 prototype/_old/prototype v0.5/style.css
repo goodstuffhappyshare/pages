@@ -1,0 +1,75 @@
+/***** Global Styles *****/
+
+*{
+	font-family: "SimHei", "Microsoft JhengHei", "STHeiti",
+				 "Noto Sans", sans-serif;
+	font-size: 24pt;
+}
+body{
+	padding: 0px;
+	background-color: #000000;
+}
+div{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	overflow: hidden;
+}
+
+/***** Main Frame *****/
+/* size to be read by javascript */
+
+#main_frame{
+	width: 100%;
+	height: 100%;
+}
+
+/***** Layout inside Main Frame *****/
+/* sizes to be set by javascript */
+
+#ctrl_area{
+	background-color: #CCCCCC;
+	overflow: auto;
+}
+
+#disp_area{
+	background-color: #548234;
+	overflow: auto;
+}
+
+#split_bar{
+	background-color: #000000;
+}
+
+#split_bar_decor{
+	background-color: #FFFFFF;
+	opacity: 0.5;
+}
+
+/***** Control Area *****/
+
+#ctrl_instr{
+	text-align: center;
+}
+
+#f_box{
+	border: 1px #000000 solid;
+	background-color: #FFFFFF;
+}
+
+#f_btn{
+	width: 80px;
+	height: 80px;
+	border: 1px #000000 solid;
+	background-color: #CCCCCC;
+}
+
+/***** Display Area *****/
+
+#p_box{
+	border: 4px #A6CC8C solid;
+	overflow: hidden;
+}

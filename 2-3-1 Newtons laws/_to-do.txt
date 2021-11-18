@@ -1,0 +1,18 @@
+To-do list
+ [v] add new buttons to English version
+ [v] add new buttons to Chinese version
+ [v] implement play/pause feature
+ [v] implement reset feature
+ [v] implement mass change feature
+     [v] particle behaviour
+     [v] particle appearance
+ [v] finishing
+     [v] code review
+     [v] update template
+         [v] stroke_W
+         [v] CTRL ARA / DISP AREA / ALGORITM MAIN EVENTS
+         [v] OBJECTS INSIDE CTRL/DISP AREA
+     [v] upload
+     [v] make "other resources" page
+ [v] update link after video is uploaded
+

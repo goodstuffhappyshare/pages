@@ -1,0 +1,119 @@
+(Aug 2020)
+
+24/8 Monday
+
+ - Research on jQuery, jQuery UI and jQuery mobile
+ - Decided to use jQuery UI + touch punch
+ - First document structure design
+   > main frame > control area + display area
+   > mess with CSS properties such as margin, padding, overflow, flex box
+ - Experiment with CSS media query
+ - First main frame that detects screen size and change shape accordingly
+
+25/8 Tuesday
+
+ - Experiments with resizing interface components by CSS
+ - Ditch flex box and CSS positioning!
+   Absolute position for everything inside the main frame.
+ - Re-do resizing of components by event handling in javascript
+ - First experiments with jQuery and jQuery UI
+ - Revise code
+   > variable names are too long!
+   > lines are too long! define new values and functions for repeated operations
+ - Learned how to manupilate CSS with jQuery
+ - Learned how the jQuery object works and how to define new functions
+ - Get the force button to work
+ - Set time interval is too choppy!
+   Okay let's re-do and use request animation frame instead...
+
+
+26/8 Wednesday
+
+ - Research on manipulating SVG, found "D3" and "jQuery SVG"
+ - Experiments with jQuery SVG
+ - Learn about how SVG works... orz
+ - Get the red line in the f-box working
+ - Get the flying particle in the p-box working
+ - Revise code
+   > event handlers are too big! chop into smaller parts!
+   > variable names start to get confusing! give accurate names!
+     make clear distinction between "internal coordinates" and "display coordinates"!
+   > handling interface within control area and display area
+     should be in the "input" and "output" blocks instead of the "layout" block!
+     code for interface is too far away from code for operations!
+     maybe tomorrow...
+
+27/8 Thursday
+
+ - Move code from "layout" block to "input" and "output" blocks
+ - Learn about groups in SVG and how to manipulate them
+ - Realize that "SVG.js" seems to be a better option than "jQuery SVG"...
+   Too late, next time.
+ - Draw the arrows
+ - Revise code
+   > to handle 9 particles, the "OOP" mindset seems to be a better option
+   > consider (1 particle + arrow + arrow) x9
+     instead of (particles x9) + (arrow x9) + (arrow x9)
+ - Get the whole thing working
+ - Clean up the code
+ - Tried 000webhost, screw it (no ad is a lie!)
+   Tried GitHub Pages... Do I need to use my PC as a server?
+   Went desperate and tried the third one... wait I don't want to give you my address...
+ - Took some time to calm down.
+ - Researched for some paid hosting servies in Hong Kong
+ - Thought about faith and faithfulness
+ - Made up my mind and decided I want to serve students with the best I could provide,
+   so let's do it if I need to pay a monthly fee.
+ - ... and realized that I could give GitHub Pages one more try tomorrow ...
+
+28/8 Friday
+
+ - Pray
+ - Experiment with GitHub Pages... it works!
+ - Separate the 700-line file into parts
+ - UI improvements
+   > control area at bottom instead of top
+   > if changed to landscape, control area goes to the right
+   > double the size of everything
+     (button, split bar, text, stroke width)
+
+31/8 Monday
+
+ - Phone test from weekend
+   > font size is OK
+   > split bar OK
+   > solved: incorrect layout when just switched from portrait to landscape
+             due to variable text box size
+   > solved: f fox and p box sizes can go to zero in landscape mode
+ - Used MIT license instead of CC license (LOL)
+ - Modified main layout to give space for menu
+
+1/9 Tuesday
+
+ - Finish implementing the menu
+ - implemented the debug log, by the way
+ - Upload
+ - Tidied files on GitHub, used separate .txt file for license
+ - Phone test 2
+   > issue: size of "doc" becomes small when full screen is on
+            (i.e. all the texts and icons becomes large)
+
+2/9 Wednesday
+
+ - tried "transform: scale" in CSS but it messes up jQuery, so no.
+ - came up with the idea of "document coordinates" with functions to access it
+ - implemented "document coordinates" from ground-up and fixed the sizing issue
+ - tidied up the code and wrote comments
+ - upload again
+
+
+
+
+
+
+
+
+
+
+
+

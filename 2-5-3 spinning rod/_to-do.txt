@@ -1,0 +1,60 @@
+Implementation
+
+[v] Interface
+    [v] Place HTML components for control area
+    [v] CSS of components
+    [v] Positions of components
+    [v] Receive input with javascript
+[v] Calculations
+[v] Display
+    [v] canvas
+    [v] rod
+    [v] rE
+    [v] line of action, angle, line for angle
+        [v] LOA_line
+        [v] tE_line
+        [v] tE_arc
+        [v] tE_label
+        [v] test arc extension
+        [v] use arc arrow
+    [v] FE
+    [v] FP
+    [v] angular velocity
+    [v] angular acceleration
+    [v] velocity of C.M.
+    [v] acceleration of C.M.
+    [v] pivot
+    [v] mod: rod opacity
+[v] Translation
+
+----------
+
+Test and debug
+
+[v] Desktop
+    [v] Function
+        [v] Put pivot over FP, put FE over pivot
+        [v] Put ang_v and ang_a on top
+    [v] Interface (including titles, links, etc)
+[v] Mobile
+    [v] Function
+    [v] Interface (including titles, links, etc)
+
+----------
+
+Code review
+
+ [v] HTML
+ [v] CSS
+ [v] My library
+ [v] Layout and menu
+ [v] Control area
+ [v] Main algorithm
+ [v] Display area
+ [v] Main config
+ [v] Remember to change the "last modified" date
+
+ [v] Correct "#menu_view_all_topics" for all
+ [v] "Noto Sans", "Noto Sans TC", "Noto Sans CJK TC"
+
+----------

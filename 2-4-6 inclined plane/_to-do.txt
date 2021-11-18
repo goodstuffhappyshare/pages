@@ -1,0 +1,41 @@
+To-do:
+
+ [v] English
+     [v] Basic HTML set-up
+         [v] clean up old contents
+         [v] style for new contents
+     [v] Control area
+         [v] layout
+         [v] behaviour
+         [v] receive input
+         [v] slow motion option
+     [v] Main algorithm
+         [v] motion of the block
+     [v] Display area
+         [v] set up SVG
+         [v] coordinate conversion
+         [v] draw the stuff
+             [v] create the arrows
+             [v] display options
+             [v] hide arrows that have small value
+                 [v] N1, N2
+                 [v] W_x
+                 [v] f
+                 [v] F
+                 [v] a
+                 [v] v
+             [v] position of N
+             [v] arrow overlapping problem
+             [v] labels of arrows
+ [v] debug
+ [v] Code review
+     [v] delete "residues" in main algorithm and display area
+     [v] clean up comments for redraw_theta()
+     [v] clean up line breaks for redraw_s()
+     [v] is_playing → !is_dragging_slider
+     [v] hide debug log
+ [v] Chinese
+ [v] final check
+
+----------
+

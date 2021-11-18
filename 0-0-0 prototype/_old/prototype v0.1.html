@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!------------------------------------------------------------------------------
+|                                                                              |
+|                  DEMONSTRATION OF NEWTON'S 1ST AND 2ND LAWS                  |
+|                                                                              |
+|                             Author: Jonathan Mok                             |
+|                          Last modified: 25 Aug 2020                          |
+|                                                                              |
+|          This web app is a supplementary material to a video lecture         |
+|                    "2-3 Newton’s Laws of Motion (Part 1)"                    |
+|                             which can be found in                            |
+|            https://goodstuffhappyshare.wordpress.com/physics_eng/            |
+|                                                                              |
+|                          This work is licensed under                         |
+|     a Creative Commons Attribution-ShareAlike 4.0 International License.     |
+|                http://creativecommons.org/licenses/by-sa/4.0/                |
+|                                                                              |
+------------------------------------------------------------------------------->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Demonstration of Newton's First and Second Laws</title>
+		<style type="text/CSS">
+			/*************************** CSS STARTS ***************************/
+			
+			/***** Global Properties *****/
+			
+			*{
+				font-family: "SimHei", "Microsoft JhengHei", "STHeiti", "Noto Sans", sans-serif;
+			}
+			body{
+				padding: 0px;
+				background-color: #000000;
+			}
+			div{
+				margin: 0px;
+				padding: 0px;
+				border: 0px;
+			}
+			
+			/***** Main Frame *****/
+			
+			#main_frame{
+				position: absolute;
+				top: 0px;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+			@media (orientation: landscape) {
+				#main_frame{
+					left: 50%;
+					width: 720px;
+					transform: translate(-50%, 0);
+				}
+			}
+			@media (orientation: portrait) {
+				#main_frame{
+					left: 0px;
+					width: 100%;
+				}
+			}
+			
+			/***** Control Area and Display Area *****/
+			
+			#control_area{
+				flex: 0 1 auto;
+				padding: 10px;
+				color: #000000;
+				background-color: #CCCCCC;
+			}
+			
+			#display_area{
+				flex: 1 1 auto;
+				padding: 10px;
+				overflow: auto;
+				color: #FFFFFF;
+				background-color: #548234;
+			}
+			
+			/***** Controls and Displays *****/
+			
+			#force_box{
+				/* size to be set by javascript*/
+				border: 1px #000000 solid;
+				background-color: #FFFFFF;
+				overflow: hidden;
+			}
+					
+			#particle_box{
+				/* size to be set by javascript*/
+				border: 2px #A6CC8C solid;
+				overflow: hidden;
+			}
+			
+			.particle{
+				border: 2px #FFFFFF solid;
+			}
+			
+			.v_arrow{
+				border: 2px #FFE57F solid;
+			}
+			
+			.F_arrow{
+				border: 5px #FF0000 solid;
+			}
+			
+			/**************************** CSS ENDS ****************************/
+		</style>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript">
+			//The following line enables the use of jQuery UI on touch devices
+			//Source: https://github.com/furf/jquery-ui-touch-punch
+			!function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
+		</script>
+		<script type="text/javascript">
+			/************************ JAVASCRIPT STARTS ************************/
+			
+			//////////////////
+			// Calculations //
+			//////////////////
+			
+			
+			/////////////
+			// Display //
+			/////////////
+			
+			//----- Values -----//
+			
+			var main_frame_w, main_frame_h;
+			var force_box_size;
+			var particle_box_size;
+			
+			
+			//----- Methods -----//
+			
+			function get_main_frame_size(){
+				main_frame_w = $("#main_frame").width();
+				main_frame_h = $("#main_frame").height();
+			}
+			
+			function calculate_box_sizes(){
+				force_box_size = 150; //This is the minimum size of the force box
+				//Then make particle box as big as possible
+				var available_particle_box_height = main_frame_h - (80 + force_box_size);
+				if(available_particle_box_height > main_frame_w){
+					particle_box_size = main_frame_w - 50;
+				}else if(available_particle_box_height - 50 > 400){
+					particle_box_size = available_particle_box_height - 50;
+				}else{
+					particle_box_size = 400; //This is the minimum size of the particle box
+				}
+				//If there is still some vertical room, expand force box up to 300px
+				var available_force_box_height = main_frame_h - (particle_box_size + 50) - 80;
+				if(available_force_box_height > 300){
+					force_box_size = 300;
+				}else if(available_force_box_height > 150){
+					force_box_size = available_force_box_height;
+				}
+			}
+			
+			function set_box_sizes(){
+				$("#force_box").width(force_box_size);
+				$("#force_box").height(force_box_size);
+				$("#particle_box").width(particle_box_size);
+				$("#particle_box").height(particle_box_size);
+			}
+			
+			function update_stage_size(){
+				get_main_frame_size();
+				calculate_box_sizes();
+				set_box_sizes();
+			}
+			
+			
+			//////////
+			// Main //
+			//////////
+			
+			$(document).ready(function(){
+				update_stage_size();
+			});
+			
+			$(window).resize(function(){
+				update_stage_size();
+			});
+			
+			/*
+			
+			Strategy:
+			- read size of main frame
+			- use the read size to determine base size parameters
+			- all variables for internal calculations are independent of base size parameters
+			- in each "frame update", re-position/re-size things by both base size parameters and internal variables
+			- if screen size changes, update base size parameters
+			
+			*/
+			
+			/************************* JAVASCRIPT ENDS *************************/
+		</script>
+	</head>
+	<body>
+		<!---------------------------- BODY STARTS ----------------------------->
+		<div id="main_frame">
+			<div id="control_area">
+				<p>拖曳以下按鈕，向物體施力：</p>
+				<div id="force_box">
+					<p>(button)</p>
+					<div id="F_arrow_control" class="F_arrow">F</div>
+				</div>
+			</div>
+			<div id="display_area">
+				<div id="particle_box">
+					<div id="particle_0" class="particle">p</div>
+					<div id="particle_E" class="particle">p</div>
+					<div id="particle_S" class="particle">p</div>
+					<div id="particle_W" class="particle">p</div>
+					<div id="particle_N" class="particle">p</div>
+					<div id="v_arrow_0" class="v_arrow">v</div>
+					<div id="v_arrow_E" class="v_arrow">v</div>
+					<div id="v_arrow_S" class="v_arrow">v</div>
+					<div id="v_arrow_W" class="v_arrow">v</div>
+					<div id="v_arrow_N" class="v_arrow">v</div>
+					<div id="F_arrow_0" class="F_arrow">F</div>
+					<div id="F_arrow_E" class="F_arrow">F</div>
+					<div id="F_arrow_S" class="F_arrow">F</div>
+					<div id="F_arrow_W" class="F_arrow">F</div>
+					<div id="F_arrow_N" class="F_arrow">F</div>
+				</div>
+			</div>
+		</div>
+		<!----------------------------- BODY ENDS ------------------------------>
+	</body>
+</html>

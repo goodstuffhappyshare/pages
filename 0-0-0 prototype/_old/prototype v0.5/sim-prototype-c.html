@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!------------------------------------------------------------------------------
+|                                                                              |
+|                  DEMONSTRATION OF NEWTON'S 1ST AND 2ND LAWS                  |
+|                                                                              |
+|                             Author: Jonathan Mok                             |
+|                          Last modified: 28 Aug 2020                          |
+|                                                                              |
+|          This web app is a supplementary material to a video lecture         |
+|                    "2-3 Newton’s Laws of Motion (Part 1)"                    |
+|                             which can be found in                            |
+|            https://goodstuffhappyshare.wordpress.com/physics_eng/            |
+|                                                                              |
+|                          This work is licensed under                         |
+|     a Creative Commons Attribution-ShareAlike 4.0 International License.     |
+|                http://creativecommons.org/licenses/by-sa/4.0/                |
+|                                                                              |
+------------------------------------------------------------------------------->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>示範：牛頓第一及第二定律</title>
+		
+		<!-- jQuery and jQuery UI -->
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		
+		<!-- jQuery UI Touch Punch -->
+		<script src="library/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+		
+		<!-- jQuery SVG -->
+		<link rel="stylesheet" type="text/css" href="library/jquery.svg.package-1.5.0/jquery.svg.css" />
+		<script src="library/jquery.svg.package-1.5.0/jquery.svg.min.js"></script>
+		<script src="library/jquery.svg.package-1.5.0/jquery.svgdom.min.js"></script>
+		
+		<!-- my style sheet -->
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		
+		<!-- my scripts -->
+		<script src="0.my-library.js"></script>
+		<script src="1.menu.js"></script>
+		<script src="2.layout.js"></script>
+		<script src="3.0.main-variables.js"></script>
+		<script src="3.1.input-ui.js"></script>
+		<script src="3.2.main-algorithm.js"></script>
+		<script src="3.3.output-display.js"></script>
+		<script src="4.main-config.js"></script>
+		
+	</head>
+	<body>
+		<div id="main_frame">
+			<div id="ctrl_area">
+				<div id="ctrl_instr">拖曳以下按鈕，向物體施力：</div>
+				<div id="f_box">
+					<div id="f_btn"></div>
+				</div>
+			</div>
+			<div id="disp_area">
+				<div id="p_box"></div>
+			</div>
+			<div id="split_bar" class="ui-widget-content">
+				<div id="split_bar_decor"></div>
+			</div>
+		</div>
+	</body>
+</html>
