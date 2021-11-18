@@ -1,10 +1,8 @@
 # First Prototype
 
-My experience with web development started with Macromedia Flash. (Yes, I grew up in the "Macromedia" era, with Flash and Dreamweaver.) As I gradually became serious in physics, my interest soon moved to C++ in late high school and Python in university, and have not touched web development for a long time.
+This prototype was my first project in HTML5/CSS3. Before this prototype, the last time I developed something for the broswer was ages ago, when Flash was still a thing (and when it was still called "Macromedia" Flash). So basically I was trying to learn HTML5 by developing this prototype. Therefore, please don't consider this as a demonstration of good code by any means. Rather, this prototype kind of recorded how I re-learned web development in a completely changed internet. If you are interested to know the development process (for whatever reasons), see **_dev-log.txt**.
 
-Then [at some point in my life](https://youtu.be/iwjl5UlDLQU) I decided that I should seriously put my coding skills to use in the _teaching_ of physics, so I returned to web development here. Basically, this prototype was my first exercise in HTML5/CSS3. What I was trying to do here was pretty much to transfer my skills from Flash and Actionscript to SVG and Javascript.
-
-This prototype was immature in many ways... and in the development log you can see my failures and struggles. If you are reading this (for whatever reasons), please remember that this prototype is by no means an example of good code. Rather, it kind of tells the story of _my pathway to learning a new programming language_.
+This prototype was immature in many ways... so I later built an improved version of it and used that as a template for the real web apps I made for "Physics Concepts".
 
 As a side note, I relied heavily on jQuery when developing my web apps here, but then realized that jQuery is getting quite old by now (2021). If you are new to web development, maybe it is a better idea to learn something like [Umbrella JS](https://umbrellajs.com/) or [React](https://reactjs.org/), or maybe just use plain javascript, which means [Vanilla JS](http://vanilla-js.com/).
 
