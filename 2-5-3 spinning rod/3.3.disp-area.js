@@ -216,8 +216,8 @@ function redraw_LOA_group(){
 		tE_label.tspan("θ").font("style","italic").font_H(font_size * 0.8);
 		tE_label.CX(0).CY(0);
 		tE_label_container.set_translation_XY(
-			x_to_canvas(rE_x) + (20+font_size*0.8)*Math.cos(-(ang_s+tE_corr)/2.0),
-			y_to_canvas(rE_y) + (20+font_size*0.8)*Math.sin(-(ang_s+tE_corr)/2.0)
+			x_to_canvas(rE_x) + (20+font_size*0.8)*Math.cos( -(ang_s+tE_corr/2.0) ),
+			y_to_canvas(rE_y) + (20+font_size*0.8)*Math.sin( -(ang_s+tE_corr/2.0) )
 		);
 		tE_label.tspan("E").attr("baseline-shift","sub").font("style","italic").font_H(font_size * 0.56);
 		
