@@ -31,17 +31,17 @@ function disp_area_on_layout_change(){
    Inside the SVG object is a "canvas" group which is rotated anti-clockwise
    by an angle of theta. Inside the group are (from top to bottom):
     - s_group
-	- v_group
-	- a_group
-	- theta_group
+    - v_group
+    - a_group
+    - theta_group
     - F_group
-	- f_group
-	- W_group
-	- W_x_group
-	- W_y_group
-	- N_group
-	- N1_group
-	- N2_group
+    - f_group
+    - W_group
+    - W_x_group
+    - W_y_group
+    - N_group
+    - N1_group
+    - N2_group
     - block_group
     - track_group
    
@@ -301,7 +301,7 @@ function redraw_W_y(){
 		W_y_label.clear();
 		W_y_label.build(true);
 		W_y_label.tspan("W").font("style","italic");
-		W_y_label.tspan(" sin");
+		W_y_label.tspan(" cos");
 		W_y_label.tspan("θ").font("style","italic");
 		W_y_label.font_H(font_size * 0.8);
 		W_y_label.CX(0).CY(0);
@@ -335,7 +335,7 @@ function redraw_W_x(){
 		W_x_label.clear();
 		W_x_label.build(true);
 		W_x_label.tspan("W").font("style","italic");
-		W_x_label.tspan(" cos");
+		W_x_label.tspan(" sin");
 		W_x_label.tspan("θ").font("style","italic");
 		W_x_label.font_H(font_size * 0.8);
 		W_x_label.CX(0).CY(0);
